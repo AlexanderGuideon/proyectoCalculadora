@@ -1,0 +1,11 @@
+https://developer.android.com/kotlin?hl=es
+
+https://kotlin.es/
+
+https://code.tutsplus.com/es/tutorials/kotlin-from-scratch-packages-basic-functions--cms-29445
+
+https://blog.kirei.io/quieres-aprender-kotlin-empieza-por-aqu%C3%AD-85fb4f481860
+
+https://kotlinlang.org/docs/reference/
+
+https://www.toptal.com/software/introduccion-a-kotlin-programacion-de-android-para-seres-humanos
