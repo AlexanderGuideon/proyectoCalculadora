@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MyCαlc</string>
+    <string name="strEcuaciones">Ecuaciones</string>
+    <string name="strMatrices">Matrices</string>
+    <string name="srtCalculadora">Calculadora</string>
+    <string name="strFormulas">Fórmulas</string>
+</resources>
