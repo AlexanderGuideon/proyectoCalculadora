@@ -5,12 +5,12 @@ class Matriz() {
 
     var row = 0
     var column = 0
-    var matriz :Array<IntArray>? = null
+   
 
     fun Matriz(row:Int,column:Int, matriz:Array<IntArray>?){
         this.row = row
         this.column = column
-        this.matriz = matriz
+        
     }
 
     /*Funcion que calcula la traspuesta*/
