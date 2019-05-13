@@ -1,9 +1,9 @@
 package com.example.proyectocalculadora
 
 class Matrix {
-    private val M: Int             // number of rows
-    private val N: Int             // number of columns
-    private val data: Array<DoubleArray>   // M-by-N array
+    private val M: Int             // numero de filas
+    private val N: Int             // numero de columnas
+    private val data: Array<DoubleArray>   // matriz
 
     // crea matriz con ceros
     constructor(M: Int, N: Int) {
@@ -44,7 +44,7 @@ class Matrix {
     // suma de matrices
     operator fun suma(B: Matrix): Matrix {
         val A = this
-        if (B.M != A.M || B.N != A.N) throw RuntimeException("Illegal matrix dimensions.")
+        if (B.M != A.M || B.N != A.N) throw RuntimeException("Dimensiones no validas para la matriz")
         val C = Matrix(M, N)
         for (i in 0 until M)
             for (j in 0 until N)
@@ -56,7 +56,7 @@ class Matrix {
     // resta de matrices
     operator fun restar(B: Matrix): Matrix {
         val A = this
-        if (B.M != A.M || B.N != A.N) throw RuntimeException("Illegal matrix dimensions.")
+        if (B.M != A.M || B.N != A.N) throw RuntimeException("Dimensiones no validas para la matriz")
         val C = Matrix(M, N)
         for (i in 0 until M)
             for (j in 0 until N)
@@ -67,7 +67,7 @@ class Matrix {
     // compara dos matrices 
     fun comparar(B: Matrix): Boolean {
         val A = this
-        if (B.M != A.M || B.N != A.N) throw RuntimeException("Illegal matrix dimensions.")
+        if (B.M != A.M || B.N != A.N) throw RuntimeException("Dimensiones no validas para la matriz")
         for (i in 0 until M)
             for (j in 0 until N)
                 if (A.data[i][j] != B.data[i][j]) return false
@@ -77,7 +77,7 @@ class Matrix {
     // producto de dos matrices
     operator fun producto(B: Matrix): Matrix {
         val A = this
-        if (A.N != B.M) throw RuntimeException("Illegal matrix dimensions.")
+        if (A.N != B.M) throw RuntimeException("Dimensiones no validas para la matriz")
         val C = Matrix(A.M, B.N)
         for (i in 0 until C.M)
             for (j in 0 until C.N)
@@ -90,7 +90,7 @@ class Matrix {
     // devuelve x = A^-1 b, asumiendo que A es cuadrada
     fun resolver(rhs: Matrix): Matrix {
         if (M != N || rhs.M != N || rhs.N != 1)
-            throw RuntimeException("Illegal matrix dimensions.")
+            throw RuntimeException("Dimensiones no validas para la matriz")
 
 
         // Eliminación gaussiana 
@@ -105,7 +105,7 @@ class Matrix {
             b.swap(i, max)
 
             
-            if (A.data[i][i] == 0.0) throw RuntimeException("Matrix is singular.")
+            if (A.data[i][i] == 0.0) throw RuntimeException("Dimensiones no validas para la matriz")
 
            
             for (j in i + 1 until N)
