@@ -2,3 +2,7 @@ Debido a problemas con respecto a las diferencias de las pruebas reales con resp
 por la complejidad que supone el traspasar algo a codigo con una documentacion, que en la practica demuestra diversos errores sintacticos y conceptuales
 y supone de muchas mas revisiones de las ya realizadas y planificadas para el proyecto, procedo a editar el planificador de proyecto con respecto a las tareas que
 se han interrumpido a causa del mal funcionamiento de otras, mayoritariamente el evaluador de expresiones.
+
+Problemas con el codigo de las matrices(ya corregidos), revision de formulas de matrices y documentacion kotlin.
+
+Perdiente de terminar la clase pricipal, con manejo de excepciones propias (en estado de aprobacion, pues  puede no requerir de ninguna).
