@@ -86,7 +86,7 @@ class ActivityCalculadora : AppCompatActivity() {
             // Read the expression
             val txt = tvExpresion.text.toString()
             // Create an Expression (A class from exp4j library)
-            val expression:BuilderExpresion? = BuilderExpresion (txt).build()
+            BuilderExpresion().evaluate(txt)
             try {
                 /* Calcular el resultado y mostrarlo con el TextView
                 val result = expression.evaluate()
