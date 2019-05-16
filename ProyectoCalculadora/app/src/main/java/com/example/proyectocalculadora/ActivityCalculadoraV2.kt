@@ -46,7 +46,7 @@ class CientificaActivity:ActionBarActivity() {
   protected fun onCreate(savedInstanceState:Bundle) {
     // TODO Auto-generated method stub
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.cientifica)
+    setContentView(R.layout.layout_calculadora)
     txtResultado = findViewById(R.id.txtResultado) as EditText
     btn0 = findViewById(R.id.btn0) as Button
     btn1 = findViewById(R.id.btn1) as Button
