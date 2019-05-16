@@ -48,7 +48,7 @@ class ReconocimentoVoz:AppCompatActivity() {
             val intentActionRecognizeSpeech = Intent(
                 RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
 
-            // Configura el Lenguaje (Español-México)
+            // Configura el Lenguaje (Español)
             intentActionRecognizeSpeech.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "es-ES")
             try {
                 startActivityForResult(intentActionRecognizeSpeech,
