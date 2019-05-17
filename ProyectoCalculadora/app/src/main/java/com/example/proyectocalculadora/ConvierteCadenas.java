@@ -3,6 +3,17 @@ class ConvierteCadenas{
   boolean esSimbolo = false;
   boolean esFun = false;
   
+  public static void main(String[]args){
+    String cadena = "ocho mil dos cientos dieci ocho";
+    
+    String palabras [] = cadena.split(" ");
+    String resul = "";
+    System.out.println(resul);
+    for(int i = 0; i<palabras.lenth;i++)
+       System.out.print(conversion.(palabras[i],resul));
+    System.out.println();
+  }
+  
   public static String conversion(String palabra, String resul){
     switch(palabra){
       case "cero":
