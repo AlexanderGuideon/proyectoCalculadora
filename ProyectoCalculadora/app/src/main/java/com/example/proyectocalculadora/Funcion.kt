@@ -1,3 +1,13 @@
 package com.example.proyectocalculadora
 
-class Funcion(var codigo: Int, var expresion: String, var resultado: String)
+import java.util.Date
+
+class Funcion {
+
+    var id: Int = 0
+    var nombre: String = ""
+    var expresion: String = ""
+    var fecha: Date? = null
+
+
+}

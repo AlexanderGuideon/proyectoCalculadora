@@ -1,6 +1,6 @@
 package com.example.proyectocalculadora
 
-class BuilderExpresion(txt: String) {
+class BuilderExpresion() {
 
 
     fun evaluate(expr:String){

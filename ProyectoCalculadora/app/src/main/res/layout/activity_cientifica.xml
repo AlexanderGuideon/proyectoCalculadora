@@ -20,11 +20,11 @@
             android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/Layout1" app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintBottom_toTopOf="@+id/Layout" app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintVertical_bias="0.378"/>
 
     <LinearLayout
-            android:id="@+id/Layout1"
+            android:id="@+id/Layout"
             android:layout_width="wrap_content"
             android:layout_height="346dp"
             android:layout_below="@+id/txtResultado"

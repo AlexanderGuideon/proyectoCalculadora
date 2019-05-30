@@ -1,96 +1,168 @@
 package com.example.proyectocalculadora
 
-class Matriz() {
+class Matriz {
+    private val M: Int             // number of rows
+    private val N: Int             // number of columns
+    private val data: Array<DoubleArray>   // M-by-N array
 
-
-    var row = 0
-    var column = 0
-   
-
-    fun Matriz(row:Int,column:Int, matriz:Array<IntArray>?){
-        this.row = row
-        this.column = column
-        
+    // create M-by-N matrix of 0's
+    constructor(M: Int, N: Int) {
+        this.M = M
+        this.N = N
+        data = Array(M) { DoubleArray(N) }
     }
 
-    /*Funcion que calcula la traspuesta*/
-    fun traspuestaMatrix(matrix: Matriz) {
+    // create matrix based on 2d array
+    constructor(data: Array<DoubleArray>) {
+        M = data.size
+        N = data[0].size
+        this.data = Array(M) { DoubleArray(N) }
+        for (i in 0 until M)
+            for (j in 0 until N)
+                this.data[i][j] = data[i][j]
+    }
 
-        // Display current matrix
-        display(matrix.matriz)
+    // copy constructor
+    private constructor(a: Matriz) : this(a.data) {}
 
-        // Transpose the matrix
-        val transpose = Array(column) { IntArray(row) }
-        for (i in 0..row - 1) {
-            for (j in 0..column - 1) {
-                transpose[j][i] = matrix.matriz!![i][j]
-            }
-        }
+    // swap rows i and j
+    private fun swap(i: Int, j: Int) {
+        val temp = data[i]
+        data[i] = data[j]
+        data[j] = temp
+    }
 
-        // Resultado traspuesta matriz
-        display(transpose)
+    // create and return the transpose of the invoking matrix
+    fun transpose(): Matriz {
+        val A = Matriz(N, M)
+        for (i in 0 until M)
+            for (j in 0 until N)
+                A.data[j][i] = this.data[i][j]
+        return A
+    }
+
+    // return C = A + b
+    operator fun plus(b: Matriz): Matriz {
+        val A = this
+        if (b.M != A.M || b.N != A.N) throw RuntimeException("Illegal matrix dimensions.")
+        val C = Matriz(M, N)
+        for (i in 0 until M)
+            for (j in 0 until N)
+                C.data[i][j] = A.data[i][j] + b.data[i][j]
+        return C
     }
 
 
-    fun display(matriz: Array<IntArray>?) {
-        println("La matriz traspuesta es: ")
-        if (matriz != null) {
-            for (row in matriz) {
-                for (column in row) {
-                    print("$column    ")
+    // return C = A - b
+    operator fun minus(b: Matriz): Matriz {
+        val A = this
+        if (b.M != A.M || b.N != A.N) throw RuntimeException("Illegal matrix dimensions.")
+        val C = Matriz(M, N)
+        for (i in 0 until M)
+            for (j in 0 until N)
+                C.data[i][j] = A.data[i][j] - b.data[i][j]
+        return C
+    }
+
+    // does A = b exactly?
+    fun eq(b: Matriz): Boolean {
+        val A = this
+        if (b.M != A.M || b.N != A.N) throw RuntimeException("Illegal matrix dimensions.")
+        for (i in 0 until M)
+            for (j in 0 until N)
+                if (A.data[i][j] != b.data[i][j]) return false
+        return true
+    }
+
+    // return C = A * b
+    operator fun times(b: Matriz): Matriz {
+        val A = this
+        if (A.N != b.M) throw RuntimeException("Illegal matrix dimensions.")
+        val C = Matriz(A.M, b.N)
+        for (i in 0 until C.M)
+            for (j in 0 until C.N)
+                for (k in 0 until A.N)
+                    C.data[i][j] += A.data[i][k] * b.data[k][j]
+        return C
+    }
+
+
+    // return x = A^-1 b, assuming A is square and has full rank
+    fun solve(rhs: Matriz): Matriz {
+        if (M != N || rhs.M != N || rhs.N != 1)
+            throw RuntimeException("Illegal matrix dimensions.")
+
+        // create copies of the data
+        val A = Matriz(this)
+        val b = Matriz(rhs)
+
+        // Gaussian elimination with partial pivoting
+        for (i in 0 until N) {
+
+            // find pivot row and swap
+            var max = i
+            for (j in i + 1 until N)
+                if (Math.abs(A.data[j][i]) > Math.abs(A.data[max][i]))
+                    max = j
+            A.swap(i, max)
+            b.swap(i, max)
+
+            // singular
+            if (A.data[i][i] == 0.0) throw RuntimeException("Matriz is singular.")
+
+            // pivot within b
+            for (j in i + 1 until N)
+                b.data[j][0] -= b.data[i][0] * A.data[j][i] / A.data[i][i]
+
+            // pivot within A
+            for (j in i + 1 until N) {
+                val m = A.data[j][i] / A.data[i][i]
+                for (k in i + 1 until N) {
+                    A.data[j][k] -= A.data[i][k] * m
                 }
-                println()
+                A.data[j][i] = 0.0
             }
+        }
+
+        // back substitution
+        val x = Matriz(N, 1)
+        for (j in N - 1 downTo 0) {
+            var t = 0.0
+            for (k in j + 1 until N)
+                t += A.data[j][k] * x.data[k][0]
+            x.data[j][0] = (b.data[j][0] - t) / A.data[j][j]
+        }
+        return x
+
+    }
+
+    // print matrix to standard output
+    fun show() {
+        for (i in 0 until M) {
+            for (j in 0 until N) {
+            }
+
         }
     }
 
-    /*Funcion que multiplica la multiplicacion de matrices*/
+    companion object {
 
-    fun main(firstMatrix: Matriz, secondMatrix: Matriz) {
-
-
-        // Mutliplica dos matrices
-        val product = Array(firstMatrix.row) { IntArray(secondMatrix.column) }
-        for (i in 0 until firstMatrix.row) {
-            for (j in 0 until secondMatrix.column) {
-                for (k in 0 until firstMatrix.column) {
-                    product[i][j] += firstMatrix.matriz!![i][k] * secondMatrix.matriz!![k][j]
-                }
-            }
+        // create and return a random M-by-N matrix with values between 0 and 1
+        fun random(M: Int, N: Int): Matriz {
+            val A = Matriz(M, N)
+            for (i in 0 until M)
+                for (j in 0 until N)
+                    A.data[i][j] = Math.random()
+            return A
         }
 
-        // Resultado
-        println("Producto de dos matrices: ")
-        for (row in product) {
-            for (column in row) {
-                print("$column    ")
-            }
-            println()
+        // create and return the N-by-N identity matrix
+        fun identity(N: Int): Matriz {
+            val I = Matriz(N, N)
+            for (i in 0 until N)
+                I.data[i][i] = 1.0
+            return I
         }
     }
 
-    /*Funcion que suma matrices*/
-    fun sumaMatrix() {
-        val rows = 2
-        val columns = 3
-        val firstMatrix = arrayOf(intArrayOf(2, 3, 4), intArrayOf(5, 2, 3))
-        val secondMatrix = arrayOf(intArrayOf(-4, 5, 3), intArrayOf(5, 6, 3))
-
-        // Adding Two matrices
-        val sum = Array(rows) { IntArray(columns) }
-        for (i in 0 until rows) {
-            for (j in 0 until columns) {
-                sum[i][j] = firstMatrix[i][j] + secondMatrix[i][j]
-            }
-        }
-
-        // Displaying the result
-        println("Resultado suma: ")
-        for (row in sum) {
-            for (column in row) {
-                print("$column    ")
-            }
-            println()
-        }
-    }
 }

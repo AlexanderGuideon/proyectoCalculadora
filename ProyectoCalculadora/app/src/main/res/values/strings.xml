@@ -4,4 +4,6 @@
     <string name="strMatrices">Matrices</string>
     <string name="srtCalculadora">Calculadora</string>
     <string name="strFormulas">Fórmulas</string>
+    <string name="estandar"/>
+    <string name="title_activity_herramientas">ActivityHerramientas</string>
 </resources>

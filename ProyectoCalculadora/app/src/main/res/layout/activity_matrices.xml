@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ActivityMatrices"
+        android:background="@drawable/fondo">
+    <TextView
+            android:text="Calcular Matrices"
+            android:layout_width="259dp"
+            android:layout_height="47dp"
+            android:id="@+id/titulo2" android:textSize="30sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_marginEnd="100dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="100dp"
+            android:layout_marginStart="100dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="100dp"
+            android:layout_marginTop="100dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="25dp" app:layout_constraintBottom_toTopOf="@+id/editText"/>
+    <EditText
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Filas Matriz "
+            android:ems="10"
+            android:id="@+id/editText" android:layout_marginEnd="100dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="100dp"
+            android:layout_marginTop="50dp" app:layout_constraintTop_toBottomOf="@+id/titulo2"
+            android:layout_marginBottom="25dp" app:layout_constraintBottom_toTopOf="@+id/editText2"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="100dp"
+            android:layout_marginStart="100dp"/>
+    <EditText
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Columnas Matriz"
+            android:ems="10"
+            android:id="@+id/editText2"
+            android:layout_marginTop="25dp" app:layout_constraintTop_toBottomOf="@+id/editText"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="100dp"
+            android:layout_marginRight="100dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="100dp"
+            android:layout_marginStart="100dp"/>
+    <Button
+            android:text="Traspuesta"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/button3"
+            android:background="#ffe0ff91"
+            tools:layout_editor_absoluteX="16dp" tools:layout_editor_absoluteY="449dp"/>
+    <Button
+            android:text="S"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content" tools:layout_editor_absoluteY="449dp"
+            tools:layout_editor_absoluteX="226dp" android:id="@+id/button" android:background="#ffe0ff91"/>
+</android.support.constraint.ConstraintLayout>

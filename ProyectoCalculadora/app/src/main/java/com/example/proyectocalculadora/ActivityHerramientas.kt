@@ -1,5 +1,6 @@
 package com.example.proyectocalculadora
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Window
@@ -15,6 +16,7 @@ class ActivityHerramientas : AppCompatActivity() {
 
         val btEcuaciones = findViewById<Button>(R.id.opcionEcuaciones)
         val btMatrices = findViewById<Button>(R.id.opcionMatrices)
+        val btMcmMcd = findViewById<Button>(R.id.opcionMcmMcd)
 
         btEcuaciones.setOnClickListener {
             accionEcuaciones()
@@ -23,6 +25,15 @@ class ActivityHerramientas : AppCompatActivity() {
         btMatrices.setOnClickListener {
             accionMatrices()
         }
+
+        btMcmMcd.setOnClickListener {
+            accionMcmMcd()
+        }
+    }
+
+    private fun accionMcmMcd() {
+        val intent = Intent(this, ActivityComunes::class.java)
+        startActivityForResult(intent, 0)
     }
 
     private fun accionEcuaciones(){
