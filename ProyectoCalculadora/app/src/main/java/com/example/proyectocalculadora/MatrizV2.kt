@@ -5,14 +5,14 @@ class Matrix {
     private val N: Int             // numero de columnas
     private val data: Array<DoubleArray>   // matriz
 
-    // crea matriz con ceros
+    // crear matriz 
     constructor(M: Int, N: Int) {
         this.M = M
         this.N = N
         data = Array(M) { DoubleArray(N) }
     }
 
-    // crea una matriz a traves de un array bidimensional
+    // crear una matriz a traves de un array bidimensional
     constructor(data: Array<DoubleArray>) {
         M = data.size
         N = data[0].size
