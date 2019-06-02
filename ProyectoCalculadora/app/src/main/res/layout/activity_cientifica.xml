@@ -20,11 +20,11 @@
             android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/Layout" app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintBottom_toTopOf="@+id/panelBotones" app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintVertical_bias="0.378"/>
 
     <LinearLayout
-            android:id="@+id/Layout"
+            android:id="@+id/panelBotones"
             android:layout_width="wrap_content"
             android:layout_height="346dp"
             android:layout_below="@+id/txtResultado"
@@ -191,11 +191,6 @@
                 android:orientation="vertical">
 
             <Button
-                    android:id="@+id/btndiv1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1/x"/>
-            <Button
                     android:id="@+id/btnFact"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -205,6 +200,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="AC"/>
+
+            <Button
+                    android:id="@+id/btnPorciento"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="%"/>
 
             <Button
                     android:id="@+id/btnDividir"

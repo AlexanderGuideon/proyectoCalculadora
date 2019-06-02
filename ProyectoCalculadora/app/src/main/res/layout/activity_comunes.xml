@@ -16,37 +16,36 @@
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp" android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="50dp"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginBottom="50dp" app:layout_constraintBottom_toTopOf="@+id/campoNumUno"/>
+            android:layout_marginBottom="25dp" app:layout_constraintBottom_toTopOf="@+id/campoNumUno"/>
     <EditText
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Numero 1"
+            android:layout_height="50dp"
             android:ems="10"
             android:id="@+id/campoNumUno"
             android:inputType="number" android:hint="Numero 1" android:layout_marginTop="50dp"
             app:layout_constraintTop_toBottomOf="@+id/titulo3" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="100dp" android:layout_marginStart="100dp"
+            android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="100dp" android:layout_marginRight="100dp" android:layout_marginBottom="25dp"
-            app:layout_constraintBottom_toTopOf="@+id/campoNumDos"/>
+            android:layout_marginEnd="8dp" android:layout_marginRight="8dp" android:layout_marginBottom="25dp"
+            app:layout_constraintBottom_toTopOf="@+id/campoNumDos" android:background="#ffe0ff91"/>
     <EditText
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:inputType="number"
-            android:text="Numero 2"
             android:ems="10"
             android:id="@+id/campoNumDos"
             android:hint="Numero 2" android:layout_marginTop="25dp"
             app:layout_constraintTop_toBottomOf="@+id/campoNumUno" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="100dp" android:layout_marginStart="100dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="100dp"
-            android:layout_marginRight="100dp"
-            app:layout_constraintBottom_toTopOf="@+id/txtResultado" android:layout_marginBottom="25dp"/>
+            android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/txtResultado" android:layout_marginBottom="25dp"
+            android:background="#ffe0ff91"/>
     <Button
             android:text="Maximo Comun Divisor"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:id="@+id/btMCM"
             android:background="#ffe0ff91"
@@ -55,11 +54,11 @@
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             app:layout_constraintHorizontal_bias="0.497" android:layout_marginTop="50dp"
-            app:layout_constraintTop_toBottomOf="@+id/txtResultado" android:layout_marginBottom="50dp"
+            app:layout_constraintTop_toBottomOf="@+id/txtResultado" android:layout_marginBottom="25dp"
             app:layout_constraintBottom_toTopOf="@+id/btMCD"/>
     <Button
             android:text="Minimo Comun Multiplo"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:id="@+id/btMCD"
             android:layout_marginBottom="100dp"
@@ -67,18 +66,19 @@
             android:background="#ffe0ff91" android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginRight="8dp" android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-            android:layout_marginTop="50dp" app:layout_constraintTop_toBottomOf="@+id/btMCM"/>
+            android:layout_marginTop="25dp" app:layout_constraintTop_toBottomOf="@+id/btMCM"/>
     <EditText
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:inputType="textPersonName"
-            android:text="Resultado"
             android:ems="10"
             android:id="@+id/txtResultado"
             android:hint="Resultado"
             android:focusable="false" android:layout_marginTop="25dp"
             app:layout_constraintTop_toBottomOf="@+id/campoNumDos" android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp" android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-            android:layout_marginBottom="50dp" app:layout_constraintBottom_toTopOf="@+id/btMCM"/>
+            android:layout_marginBottom="25dp" app:layout_constraintBottom_toTopOf="@+id/btMCM"
+            android:background="#ffe0ff91"/>
 </android.support.constraint.ConstraintLayout>

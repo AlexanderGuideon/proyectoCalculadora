@@ -1,15 +1,13 @@
 package com.example.proyectocalculadora
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.Window
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import java.lang.Float.*
 
-class ActivityCientifica : AppCompatActivity() {
+class ActivityCientifica : ActivityPadre() {
 
     private lateinit var txtResultado: EditText
 
@@ -31,6 +29,7 @@ class ActivityCientifica : AppCompatActivity() {
     private lateinit var btnMultiplicar: Button
     private lateinit var btnPotenciacion: Button
     private lateinit var btnRadicacion: Button
+    private lateinit var btnPorciento: Button
 
     private lateinit var btnSen: Button
     private lateinit var btnaSen: Button
@@ -56,6 +55,7 @@ class ActivityCientifica : AppCompatActivity() {
     private var onClickOper2:View.OnClickListener? = null
     private var onClickOper3:View.OnClickListener? = null
     private var onClickOper4:View.OnClickListener? = null
+    private var onClickOper5:View.OnClickListener? = null
     private var onClickOper6:View.OnClickListener? = null
     private var onClickOper7:View.OnClickListener? = null
     private var onClickOper8:View.OnClickListener? = null
@@ -69,7 +69,7 @@ class ActivityCientifica : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
+        //supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_cientifica)
 
         obtenerElementos()
@@ -97,6 +97,9 @@ class ActivityCientifica : AppCompatActivity() {
         btnMultiplicar = findViewById<View>(R.id.btnMultiplicar) as Button
         btnPotenciacion = findViewById<View>(R.id.btnPotencia) as Button
         btnRadicacion = findViewById<View>(R.id.btnRaiz) as Button
+        btnPorciento = findViewById<View>(R.id.btnPorciento) as Button
+        btnFact = findViewById<View>(R.id.btnFact) as Button
+
 
         btnSen = findViewById<View>(R.id.btnSen) as Button
         btnaSen = findViewById<View>(R.id.btnaSen) as Button
@@ -105,7 +108,6 @@ class ActivityCientifica : AppCompatActivity() {
         btnTan = findViewById<View>(R.id.btnTan) as Button
         btnaTan = findViewById<View>(R.id.btnaTan) as Button
 
-        btnFact = findViewById<View>(R.id.btnFact) as Button
 
         btnIgual = findViewById<View>(R.id.btnIgual) as Button
         btnBorrar = findViewById<View>(R.id.btnBorrar) as Button
@@ -159,6 +161,7 @@ class ActivityCientifica : AppCompatActivity() {
             var datos:Double? = obtenerDatos(v)
             if(datos!=null){
                 var resultado = Math.sqrt(datos)
+                valorA = resultado.toString()
                 txtResultado.setText(resultado.toString())
             }
             else
@@ -202,6 +205,17 @@ class ActivityCientifica : AppCompatActivity() {
                 Toast.makeText(this,"Error de Operador", Toast.LENGTH_LONG).show()
         }
 
+        onClickOper5 = View.OnClickListener { v ->
+
+            var datos:Double? = obtenerDatos(v)
+            if(datos!=null){
+                var resultado :Double = (datos*100)/datos
+                valorA = resultado.toString()
+                txtResultado.setText(resultado.toString())
+            }
+            else
+                Toast.makeText(this,"Error de Operador", Toast.LENGTH_LONG).show()
+        }
 
         onClickOper6 = View.OnClickListener { v ->
 
@@ -364,6 +378,7 @@ class ActivityCientifica : AppCompatActivity() {
             btnDividir.setOnClickListener(onClickOper)
             btnMultiplicar.setOnClickListener(onClickOper)
             btnPotenciacion.setOnClickListener(onClickOper)
+
         }
 
         if(onClickOper1 != null)
@@ -378,7 +393,8 @@ class ActivityCientifica : AppCompatActivity() {
         if(onClickOper4 != null)
             btnTan.setOnClickListener(onClickOper4)
 
-
+        if(onClickOper5 != null)
+            btnPorciento.setOnClickListener(onClickOper5)
 
         if(onClickOper6 != null)
             btnaSen.setOnClickListener(onClickOper6)

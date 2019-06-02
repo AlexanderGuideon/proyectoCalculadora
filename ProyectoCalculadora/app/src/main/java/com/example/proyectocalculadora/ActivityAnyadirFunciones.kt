@@ -1,7 +1,6 @@
 package com.example.proyectocalculadora
 
 import android.content.ContentValues
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -10,7 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_anyadir_funciones.*
 
-class ActivityAnyadirFunciones : AppCompatActivity() {
+class ActivityAnyadirFunciones : ActivityPadre() {
 
     private lateinit var txtResultado: EditText
 
@@ -32,6 +31,8 @@ class ActivityAnyadirFunciones : AppCompatActivity() {
     private lateinit var btnMultiplicar: Button
     private lateinit var btnPotenciacion: Button
     private lateinit var btnRadicacion: Button
+    private lateinit var btnParDer: Button
+    private lateinit var btnParIzq: Button
 
     private lateinit var btnSen: Button
     private lateinit var btnaSen: Button
@@ -44,8 +45,8 @@ class ActivityAnyadirFunciones : AppCompatActivity() {
     private lateinit var btnLimpiar: Button
 
     private var onClick:View.OnClickListener? = null
-    private var onClickOperacion:View.OnClickListener? = null
-    private var onClickLimpiar:View.OnClickListener? = null
+    private var onClickBorrar:View.OnClickListener? = null
+    private var onClickLimpiar: View.OnLongClickListener? = null
 
     internal var valorA = ""
     internal var esFun = false
@@ -54,7 +55,7 @@ class ActivityAnyadirFunciones : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_anyadir_funciones)
 
-        val btAnyadir = findViewById<Button>(R.id.btAnyadir)
+        val btAnyadir = findViewById(R.id.btAnyadir) as Button
 
         obtenerElementos()
         registrarEventos()
@@ -69,25 +70,36 @@ class ActivityAnyadirFunciones : AppCompatActivity() {
 
         onClick = View.OnClickListener { v ->
             ponerDato(v)
-            if(esFun){
-                var texto = txtResultado.text.toString()
-                texto += ")"
-                txtResultado.setText(texto)
-            }
+
         }
 
-        onClickOperacion = View.OnClickListener { v ->
-            ponerDato(v)
-            var texto = txtResultado.text.toString()
-            texto += "("
-            txtResultado.setText(texto)
-            esFun = true
+
+
+        onClickLimpiar = View.OnLongClickListener {v ->
+
+            valorA = ""
+            txtResultado.setText(valorA)
+            true
         }
+
+        onClickBorrar = View.OnClickListener { v ->
+
+            valorA = valorA.substring(0,valorA.length-1)
+            txtResultado.setText(valorA)
+        }
+
+
+
+
     }
 
     private fun ponerDato(v:View) {
         var dato = v as Button
-        valorA += dato.text
+        if(dato.text!="n!")
+            valorA += dato.text
+        else
+            valorA += "!"
+
         txtResultado.setText(valorA)
     }
 
@@ -111,6 +123,8 @@ class ActivityAnyadirFunciones : AppCompatActivity() {
         btnMultiplicar = findViewById<View>(R.id.btnMultiplicar) as Button
         btnPotenciacion = findViewById<View>(R.id.btnPotencia) as Button
         btnRadicacion = findViewById<View>(R.id.btnRaiz) as Button
+        btnParDer = findViewById<View>(R.id.btnParDer) as Button
+        btnParIzq = findViewById<View>(R.id.btnParIzq) as Button
 
         btnSen = findViewById<View>(R.id.btnSen) as Button
         btnaSen = findViewById<View>(R.id.btnaSen) as Button
@@ -151,49 +165,40 @@ class ActivityAnyadirFunciones : AppCompatActivity() {
             btnPotenciacion.setOnClickListener(onClick)
             btnRadicacion.setOnClickListener(onClick)
             btnFact.setOnClickListener(onClick)
+            btnParDer.setOnClickListener(onClick)
+            btnParIzq.setOnClickListener(onClick)
+            btnSen.setOnClickListener(onClick)
+            btnCos.setOnClickListener(onClick)
+            btnTan.setOnClickListener(onClick)
+            btnaSen.setOnClickListener(onClick)
+            btnaCos.setOnClickListener(onClick)
+            btnaTan.setOnClickListener(onClick)
+
         }
-
-        if(onClickOperacion != null)
-            btnSen.setOnClickListener(onClickOperacion)
-
-        if(onClickOperacion != null)
-            btnCos.setOnClickListener(onClickOperacion)
-
-        if(onClickOperacion != null)
-            btnTan.setOnClickListener(onClickOperacion)
-
-
-        if(onClickOperacion != null)
-            btnaSen.setOnClickListener(onClickOperacion)
-
-        if(onClickOperacion != null)
-            btnaCos.setOnClickListener(onClickOperacion)
-
-        if(onClickOperacion != null)
-            btnaTan.setOnClickListener(onClickOperacion)
-
-
 
 
         //Elementos de Borrado
-        if(onClickLimpiar != null)
-            btnLimpiar.setOnClickListener(onClickLimpiar)
+        if(onClickLimpiar != null){
+            btnLimpiar.setOnClickListener(onClickBorrar)
+            btnLimpiar.setOnLongClickListener(onClickLimpiar)
+        }
 
     }
 
     private fun accionAnyadir(){
 
-        val txtExpresion :TextView = findViewById(R.id.txtResultado)
-        val funciones = FuncionesSQLiteHelper(this, "funciones", null, 1)
+        /*val txtExpresion :TextView = findViewById(R.id.txtResultado)
+        val funciones = FuncionesSQLiteHelper(this, "Funciones", null, 1)
         val bd = funciones.writableDatabase
         val registro = ContentValues()
 
+        bd.insert(Funciones,)
         registro.put("nombre", txtNombre.text.toString())
         registro.put("expresion", txtExpresion.text.toString())
         bd.insert("funciones", null, registro)
         bd.close()
         txtNombre.setText("")
-        txtExpresion.setText("")
+        txtExpresion.setText("")*/
 
         Toast.makeText(this, "Añadida Correctamente", Toast.LENGTH_LONG).show()
     }

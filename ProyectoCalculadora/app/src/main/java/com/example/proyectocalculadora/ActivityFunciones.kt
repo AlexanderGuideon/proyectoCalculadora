@@ -7,11 +7,11 @@ import android.view.View
 import android.view.Window
 import android.widget.Button
 
-class ActivityFunciones : AppCompatActivity() {
+class ActivityFunciones : ActivityPadre() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
+        //supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_funciones)
         val opcAnyadirFunciones = findViewById<View>(R.id.opcAnyadirFunciones) as Button
 

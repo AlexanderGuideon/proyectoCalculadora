@@ -1,14 +1,14 @@
 package com.example.proyectocalculadora
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import java.lang.Exception
 
 
-class ActivityComunes : AppCompatActivity() {
+class ActivityComunes : ActivityPadre() {
 
     internal lateinit var campoNumUno: EditText
     internal lateinit var campoNumDos: EditText
@@ -27,70 +27,80 @@ class ActivityComunes : AppCompatActivity() {
         campoNumDos = findViewById<View>(R.id.campoNumDos) as EditText
         txtResul = findViewById<View>(R.id.txtResultado) as EditText
 
-        btMCM.setOnClickListener { calcularMCM() }
 
-        btMCD.setOnClickListener { calcularMCD() }
+        btMCM.setOnClickListener {
+            calcularMCM()
+        }
+
+        btMCD.setOnClickListener {
+            calcularMCD()
+        }
+
     }
 
     private fun calcularMCD() {
-        if (!camposVacios()) {
-            var dato1 = Integer.parseInt(campoNumUno.text.toString())
-            var dato2 = Integer.parseInt(campoNumUno.text.toString())
-            var resto:Int
-            var numDiv1 = dato1
-            var numDiv2 = dato2
-            try
-            {
-                do
-                {
-                    resto = numDiv1 % numDiv2
-                    numDiv1 = numDiv2
-                    if (resto != 0)
-                        numDiv2 = resto
-                }
-                while (resto != 0)
+        //if (!camposVacios()) {
+        var camposVacios :Boolean = false
+            try{
+                var dato1 = Integer.parseInt(campoNumUno.text.toString().trim())
+                var dato2 = Integer.parseInt(campoNumDos.text.toString().trim())
 
-                txtResul.setText(numDiv2)
+
+                while (dato1 != dato2) {
+                    if (dato1 > dato2)
+                        dato1 -= dato2
+                    else
+                        dato2 -= dato1
+                }
+
+                txtResul.setText(dato1.toString())
             }
-            catch (e:Exception) {
-                Toast.makeText(this, "Error en cálculo de MCD: ", Toast.LENGTH_LONG)
-                txtResul.setText("")
+
+            catch (e:Exception){
+                camposVacios = true
             }
-        } else
-            Toast.makeText(this, "Campos Vacios", Toast.LENGTH_LONG)
+
+        if(camposVacios)
+            Toast.makeText(this, "Campos Vacios", Toast.LENGTH_LONG).show()
+        //} else Toast.makeText(this, "Campos Vacios", Toast.LENGTH_LONG)
 
     }
 
     private fun calcularMCM() {
-        if (!camposVacios()) {
-            var dato1 = Integer.parseInt(campoNumUno.text.toString())
-            var dato2 = Integer.parseInt(campoNumUno.text.toString())
-
-            var multiplo: Int
+        //if (!camposVacios()) {
+        var camposVacios :Boolean = false
 
             try{
-                if (dato1 > dato2)
-                    multiplo = dato1
-                else
-                    multiplo = dato2
+                var dato1 = Integer.parseInt(campoNumUno.text.toString().trim())
+                var dato2 = Integer.parseInt(campoNumDos.text.toString().trim())
 
-                while (multiplo % dato1 !== 0 || multiplo % dato2 !== 0)
-                    multiplo++
+                var mcd = 1
 
-                txtResul.setText(multiplo)
+                var i = 1
+                while (i <= dato1 && i <= dato2) {
+                    if (dato1 % i == 0 && dato2 % i == 0)
+                        mcd = i
+                    ++i
+                }
+
+                val mcm = dato1 * dato2 / mcd
+                txtResul.setText(mcm.toString())
             }
-            catch (e:Exception) {
-                Toast.makeText(this, "Error en cálculo de MCM: ", Toast.LENGTH_LONG)
-                txtResul.setText("")
+            catch (e:Exception){
+                camposVacios = true
             }
 
-
-        } else
-            Toast.makeText(this, "Campos Vacios", Toast.LENGTH_LONG)
+            if(camposVacios)
+                Toast.makeText(this, "Campos Vacios", Toast.LENGTH_LONG).show()
+        //} else Toast.makeText(this, "Campos Vacios", Toast.LENGTH_LONG)
     }
 
 
     private fun camposVacios(): Boolean {
-        return campoNumUno.text.toString() === " " && campoNumDos.text.toString() === " "
+        return try{
+            campoNumUno.text.toString() === "" && campoNumDos.text.toString() === ""
+        } catch (e :Exception){
+            true
+        }
     }
 }

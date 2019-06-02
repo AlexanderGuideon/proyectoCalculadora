@@ -9,52 +9,106 @@
         android:background="@drawable/fondo">
     <TextView
             android:text="Calcular Matrices"
-            android:layout_width="259dp"
-            android:layout_height="47dp"
-            android:id="@+id/titulo2" android:textSize="30sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/titulo" android:textSize="30sp"
             android:textColor="@color/colorPrimaryDark"
-            android:layout_marginEnd="100dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="100dp"
-            android:layout_marginStart="100dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="100dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="10dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="10dp"
+            android:layout_marginTop="50dp"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginBottom="25dp" app:layout_constraintBottom_toTopOf="@+id/editText"/>
+            android:layout_marginBottom="25dp" app:layout_constraintBottom_toTopOf="@+id/txtMatrizDos"/>
+
     <EditText
             android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:text="Filas Matriz "
-            android:ems="10"
-            android:id="@+id/editText" android:layout_marginEnd="100dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="100dp"
-            android:layout_marginTop="50dp" app:layout_constraintTop_toBottomOf="@+id/titulo2"
-            android:layout_marginBottom="25dp" app:layout_constraintBottom_toTopOf="@+id/editText2"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="100dp"
-            android:layout_marginStart="100dp"/>
-    <EditText
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:text="Columnas Matriz"
-            android:ems="10"
-            android:id="@+id/editText2"
-            android:layout_marginTop="25dp" app:layout_constraintTop_toBottomOf="@+id/editText"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="100dp"
-            android:layout_marginRight="100dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="100dp"
-            android:layout_marginStart="100dp"/>
-    <Button
-            android:text="Traspuesta"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/button3"
+            android:layout_height="150dp"
+            android:inputType="text"
+            android:id="@+id/txtMatrizDos"
+            android:selectAllOnFocus="false" android:singleLine="false" android:focusable="false"
             android:background="#ffe0ff91"
-            tools:layout_editor_absoluteX="16dp" tools:layout_editor_absoluteY="449dp"/>
-    <Button
-            android:text="S"
+            app:layout_constraintStart_toEndOf="@+id/txtMatrizUno"
+            android:layout_marginLeft="10dp" android:layout_marginStart="10dp" android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="10dp" android:layout_marginTop="25dp"
+            app:layout_constraintTop_toBottomOf="@+id/titulo" android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/btProducto" android:hint="Matriz 2"/>
+
+    <EditText
             android:layout_width="150dp"
-            android:layout_height="wrap_content" tools:layout_editor_absoluteY="449dp"
-            tools:layout_editor_absoluteX="226dp" android:id="@+id/button" android:background="#ffe0ff91"/>
+            android:layout_height="150dp"
+            android:inputType="text"
+            android:id="@+id/txtMatrizUno"
+            android:selectAllOnFocus="false" android:singleLine="false" android:focusable="false"
+            android:background="#ffe0ff91" android:layout_marginTop="50dp"
+            app:layout_constraintTop_toBottomOf="@+id/titulo" app:layout_constraintEnd_toStartOf="@+id/txtMatrizDos"
+            android:layout_marginEnd="10dp" android:layout_marginRight="10dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp" android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/btComparar" android:hint="Matriz 1"/>
+
+    <Button
+            android:text=" Traspuesta M1"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btTraspuestaM1"
+            android:background="#ffe0ff91"
+            app:layout_constraintEnd_toStartOf="@+id/btTraspuestaM2"
+            android:layout_marginEnd="10dp" android:layout_marginRight="10dp" android:layout_marginBottom="15dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="10dp" app:layout_constraintTop_toBottomOf="@+id/btSuma"
+            android:layout_marginLeft="10dp" android:layout_marginStart="10dp"/>
+    <Button
+            android:text="Suma"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btSuma" android:background="#ffe0ff91"
+            app:layout_constraintBottom_toTopOf="@+id/btTraspuestaM1" android:layout_marginStart="10dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp" app:layout_constraintTop_toBottomOf="@+id/btComparar"
+            app:layout_constraintEnd_toStartOf="@+id/btResta" android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp" android:layout_marginBottom="10dp"/>
+    <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btResta" android:background="#ffe0ff91"
+            android:text="Resta"
+            app:layout_constraintTop_toBottomOf="@+id/btProducto"
+            app:layout_constraintStart_toEndOf="@+id/btSuma" android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp" app:layout_constraintHorizontal_bias="1.0"
+            android:layout_marginTop="10dp" android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/btTraspuestaM2"/>
+    <Button
+            android:text="Producto"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btProducto" android:background="#ffe0ff91"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/btResta" android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/txtMatrizDos" android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="10dp"
+            app:layout_constraintStart_toEndOf="@+id/btComparar" android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"/>
+    <Button
+            android:text="Comparar"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btComparar" android:background="#ffe0ff91"
+            android:layout_marginTop="10dp" app:layout_constraintTop_toBottomOf="@+id/txtMatrizUno"
+            app:layout_constraintBottom_toTopOf="@+id/btSuma" app:layout_constraintEnd_toStartOf="@+id/btProducto"
+            android:layout_marginEnd="10dp" android:layout_marginRight="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="10dp" android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"/>
+    <Button
+            android:text="Traspuesta M2"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btTraspuestaM2" android:background="#ffe0ff91" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="10dp" android:layout_marginRight="10dp" android:layout_marginBottom="15dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toEndOf="@+id/btTraspuestaM1"
+            android:layout_marginStart="8dp" android:layout_marginLeft="8dp" android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/btResta"/>
+
 </android.support.constraint.ConstraintLayout>

@@ -7,16 +7,17 @@ import android.view.Window
 import android.widget.Button
 import android.widget.Toast
 
-class ActivityHerramientas : AppCompatActivity() {
+class ActivityHerramientas : ActivityPadre() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
+        //supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_herramientas)
 
         val btEcuaciones = findViewById<Button>(R.id.opcionEcuaciones)
         val btMatrices = findViewById<Button>(R.id.opcionMatrices)
         val btMcmMcd = findViewById<Button>(R.id.opcionMcmMcd)
+        val btVozTexto = findViewById<Button>(R.id.opcionVozTexto)
 
         btEcuaciones.setOnClickListener {
             accionEcuaciones()
@@ -29,6 +30,14 @@ class ActivityHerramientas : AppCompatActivity() {
         btMcmMcd.setOnClickListener {
             accionMcmMcd()
         }
+
+        btVozTexto.setOnClickListener {
+            accionVozTexto()
+        }
+    }
+
+    private fun accionVozTexto() {
+        Toast.makeText(this, "Estamos trabajando en ello", Toast.LENGTH_LONG).show()
     }
 
     private fun accionMcmMcd() {
@@ -37,7 +46,8 @@ class ActivityHerramientas : AppCompatActivity() {
     }
 
     private fun accionEcuaciones(){
-        Toast.makeText(this, "Estamos trabajando en ello", Toast.LENGTH_LONG).show()
+        val intent = Intent(this, ActivityEcuacion::class.java)
+        startActivityForResult(intent, 0)
     }
 
     private fun accionMatrices() {

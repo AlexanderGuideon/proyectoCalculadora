@@ -1,16 +1,14 @@
 package com.example.proyectocalculadora
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.Window
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import java.lang.Float
 import android.widget.Toast.makeText as makeText1
 
-class ActivityEstandar : AppCompatActivity() {
+class ActivityEstandar : ActivityPadre() {
 
     //Recogemos elementos de la vista para trabajar con ellos
     private lateinit var txtResultado: EditText
@@ -57,7 +55,7 @@ class ActivityEstandar : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
+        //supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_estandar)
 
         obtenerElementos()

@@ -23,7 +23,7 @@ class FuncionesSQLiteHelper(contexto: Context, nombre: String, factory: CursorFa
         onCreate(db)
     }
 
-    fun addTask(funcion: Funcion): Boolean {
+    fun addFuncion(funcion: Funcion): Boolean {
         val db = this.writableDatabase
         val values = ContentValues()
         values.put(NOMBRE, funcion.nombre)
@@ -33,7 +33,7 @@ class FuncionesSQLiteHelper(contexto: Context, nombre: String, factory: CursorFa
         return (Integer.parseInt("$_success") != -1)
     }
 
-    fun getTask(_id: Int): Funcion {
+    fun getFuncion(_id: Int): Funcion {
         val funcion = Funcion()
         val db = writableDatabase
         val selectQuery = "SELECT  * FROM $TABLE_NAME WHERE $ID = $_id"
@@ -71,7 +71,7 @@ class FuncionesSQLiteHelper(contexto: Context, nombre: String, factory: CursorFa
             return taskList
         }
 
-    fun updateTask(funcion: Funcion): Boolean {
+    fun updateFuncion(funcion: Funcion): Boolean {
         val db = this.writableDatabase
         val values = ContentValues()
         values.put(NOMBRE, funcion.nombre)
@@ -82,7 +82,7 @@ class FuncionesSQLiteHelper(contexto: Context, nombre: String, factory: CursorFa
         return Integer.parseInt("$_success") != -1
     }
 
-    fun deleteTask(_id: Int): Boolean {
+    fun deleteFuncion(_id: Int): Boolean {
         val db = this.writableDatabase
         val _success = db.delete(TABLE_NAME, ID + "=?", arrayOf(_id.toString())).toLong()
         db.close()
