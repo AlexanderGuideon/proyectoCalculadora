@@ -75,6 +75,8 @@ class ActivityEcuacion : ActivityPadre() {
             var numB = parseFloat(txtB.text.toString()).toDouble()
             var resul = (-numB)/numA
             txtEcuacion.setText(resul.toString())
+            txtA.setText("")
+            txtB.setText("")
         }
         else
             Toast.makeText(this,"Datos vacios",Toast.LENGTH_LONG).show()
@@ -97,8 +99,14 @@ class ActivityEcuacion : ActivityPadre() {
                 txtEcuacion.setText("R1: "+(-numB+Math.sqrt(expresion))/(2*numA)+"\n")
                 txtEcuacion.append("R2: "+(-numB-Math.sqrt(expresion))/(2*numA))
             }
+
+            txtA.setText("")
+            txtB.setText("")
+            txtC.setText("")
         }
         else
             Toast.makeText(this,"Datos vacios",Toast.LENGTH_LONG).show()
+
+
     }
 }

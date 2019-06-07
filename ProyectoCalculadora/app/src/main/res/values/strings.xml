@@ -6,4 +6,5 @@
     <string name="strFormulas">Fórmulas</string>
     <string name="estandar"/>
     <string name="title_activity_herramientas">ActivityHerramientas</string>
+    <string name="eliminar_confirmacion">eliminado</string>
 </resources>

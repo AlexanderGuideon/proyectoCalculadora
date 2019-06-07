@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.content.Intent
+import android.widget.Toast
+
 
 class ActivityRellenaMatriz : ActivityPadre() {
 
@@ -24,6 +27,9 @@ class ActivityRellenaMatriz : ActivityPadre() {
     private var onClickIntroCrearMatriz: View.OnClickListener? = null
 
     private var matriz: Matriz? = null
+    private var datos: IntArray? = null
+    private var tamDatos :Int = 0
+    private var dato:Int = 0
     private var filas: Int = 0
     private var columnas: Int = 0
 
@@ -45,22 +51,66 @@ class ActivityRellenaMatriz : ActivityPadre() {
     private fun establecerEventos() {
 
         onClickIntroFilasColumnas = View.OnClickListener { v ->
-            if(txtFilas.text.toString()=== "" || txtColumnas.text.toString()=== ""){
+            if(txtFilas.text.toString()!= "" || txtColumnas.text.toString()!== ""){
                 filas = Integer.parseInt(txtFilas.text.toString())
                 columnas = Integer.parseInt(txtColumnas.text.toString())
             }
         }
 
-        onClickIntroDato = View.OnClickListener { v ->
-                obtenerMatriz()
-        }
-
         onClickAutoRellena = View.OnClickListener { v ->
+            val array = Array(filas) { IntArray(columnas) }
+            for (i in 0 until columnas) {
+                for (j in 0 until filas) {
+                    array[i][j] = Integer.parseInt((Math.round(Math.random()*9)).toString())
+                }
+            }
+            matriz = Matriz(array)
+            for (i in 0 until columnas) {
+                for (j in 0 until filas) {
+                    Toast.makeText(this,matriz!!.data[i][j],Toast.LENGTH_LONG)
+                }
+            }
+        }
+
+
+        var array :Array<IntArray> =  Array(filas) { IntArray(columnas) }
+
+
+        onClickIntroDato = View.OnClickListener { v ->
+            tamDatos = filas*columnas
+            if(datos == null)
+                datos = IntArray(tamDatos)
+
+            if(dato < tamDatos){
+                datos!![dato] = Integer.parseInt(txtDato.text.toString())
+                txtDato.setText("")
+                dato++
+            }
 
         }
+
 
         onClickIntroCrearMatriz = View.OnClickListener { v ->
-
+            if(datos!=null){
+                for (i in 0 until columnas) {
+                    for (j in 0 until filas) {
+                        if(dato<tamDatos){
+                            array[i][j] = datos!![dato]
+                            dato++
+                        }
+                        else{
+                            dato = 0
+                            tamDatos = 0
+                        }
+                    }
+                }
+                matriz = Matriz(array)
+            }
+            if(matriz != null){
+                val intent = Intent(this, ActivityMatrices::class.java)
+                intent.putExtra("matriz",matriz)
+                startActivity(intent)
+            }
         }
     }
 
@@ -75,18 +125,4 @@ class ActivityRellenaMatriz : ActivityPadre() {
         btCrearMatriz = findViewById<View>(R.id.btCrearMatriz) as Button
     }
 
-    private fun obtenerMatriz(){
-
-        val dato = 1
-
-        val array = Array(filas) { IntArray(columnas) }
-
-        for (i in 0 until columnas) {
-            for (j in 0 until filas) {
-                array[i][j] = dato
-            }
-        }
-        matriz = Matriz(array)
-
-    }
 }

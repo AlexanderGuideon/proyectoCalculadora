@@ -5,10 +5,17 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_cientifica.*
 import java.lang.Float.*
 
+
+/**
+* ActivityCientifica: activity que muestra una calculadora cientifica, los botones ponen en texto 
+* correspondiente en txtResultado y esto se envia al evaluador de expresiones
+*/
 class ActivityCientifica : ActivityPadre() {
 
+	//Recogemos elementos de la vista para trabajar con ellos
     private lateinit var txtResultado: EditText
 
     private lateinit var btn0: Button
@@ -32,39 +39,35 @@ class ActivityCientifica : ActivityPadre() {
     private lateinit var btnPorciento: Button
 
     private lateinit var btnSen: Button
-    private lateinit var btnaSen: Button
     private lateinit var btnCos: Button
-    private lateinit var btnaCos: Button
+    private lateinit var btnLogaritmo: Button
     private lateinit var btnTan: Button
-    private lateinit var btnaTan: Button
+
 
     private lateinit var btnFact: Button
-
+    private lateinit var btnParDer: Button
+    private lateinit var btnParIzq: Button
     private lateinit var btnIgual: Button
     private lateinit var btnBorrar: Button
     private lateinit var btnLimpiar: Button
+	
+	//Variables para obtener los operandos y el resultado correspondiente en la calculadora
     internal var valorA = ""
-    internal var valorB = ""
-    internal var operador = ' '
-    private var cont = ""
-    
+    internal var resul = ""
+	internal var finParentesis:Boolean = false
+	internal var esArco:Boolean = false
+    internal var esFun = false
+    internal var esPi = false
+	
+    //Eventos de nuestra activity
     private var onClick:View.OnClickListener? = null
-    private var onClickPunto:View.OnClickListener? = null
-    private var onClickOper:View.OnClickListener? = null
-    private var onClickOper1:View.OnClickListener? = null
-    private var onClickOper2:View.OnClickListener? = null
-    private var onClickOper3:View.OnClickListener? = null
-    private var onClickOper4:View.OnClickListener? = null
-    private var onClickOper5:View.OnClickListener? = null
-    private var onClickOper6:View.OnClickListener? = null
-    private var onClickOper7:View.OnClickListener? = null
-    private var onClickOper8:View.OnClickListener? = null
-    private var onClickOper9:View.OnClickListener? = null
     private var onClickResulOper:View.OnClickListener? = null
     private var onClickBorrar:View.OnClickListener? = null
     private var onClickLimpiar:View.OnClickListener? = null
+	private var onLongParentesis:View.OnLongClickListener? = null
+	private var onLongFuncion:View.OnLongClickListener? = null
+    private var onClickFuncion:View.OnClickListener? = null
 
-    
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -79,7 +82,7 @@ class ActivityCientifica : ActivityPadre() {
 
     private fun obtenerElementos() {
 
-        txtResultado = findViewById<View>(R.id.txtResultado) as EditText
+        txtResultado = findViewById<View>(R.id.edtContent) as EditText
         btn0 = findViewById<View>(R.id.btn0) as Button
         btn1 = findViewById<View>(R.id.btn1) as Button
         btn2 = findViewById<View>(R.id.btn2) as Button
@@ -99,16 +102,17 @@ class ActivityCientifica : ActivityPadre() {
         btnRadicacion = findViewById<View>(R.id.btnRaiz) as Button
         btnPorciento = findViewById<View>(R.id.btnPorciento) as Button
         btnFact = findViewById<View>(R.id.btnFact) as Button
-
+        btnPorciento = findViewById<View>(R.id.btnPorciento) as Button
 
         btnSen = findViewById<View>(R.id.btnSen) as Button
-        btnaSen = findViewById<View>(R.id.btnaSen) as Button
+
         btnCos = findViewById<View>(R.id.btnCos) as Button
-        btnaCos = findViewById<View>(R.id.btnaCos) as Button
+        btnLogaritmo = findViewById<View>(R.id.btnLogaritmo) as Button
         btnTan = findViewById<View>(R.id.btnTan) as Button
-        btnaTan = findViewById<View>(R.id.btnaTan) as Button
 
 
+        btnParDer = findViewById<View>(R.id.btnParDer) as Button
+        btnParIzq = findViewById<View>(R.id.btnParIzq) as Button
         btnIgual = findViewById<View>(R.id.btnIgual) as Button
         btnBorrar = findViewById<View>(R.id.btnBorrar) as Button
         btnPunto = findViewById<View>(R.id.btnPunto) as Button
@@ -119,245 +123,49 @@ class ActivityCientifica : ActivityPadre() {
 
 
         onClick = View.OnClickListener { v ->
-            var dato = v as Button
-            valorA += dato.text
-            txtResultado.setText(valorA)
+            ponerDato(v)
         }
 
-        onClickPunto = object : View.OnClickListener {
-            var hayPunto = false
-            override fun onClick(v: View) {
-                var dato = v as Button
-                try {
-                    var a = java.lang.Double.parseDouble(valorA)
-                    if (a % 1 == 0.0) {
-                        valorA += dato.text
-                        txtResultado.setText(valorA)
-                    } else if (a % 1 != 0.0) {
-                        hayPunto = true
-                        return
-                    }
-                } catch (nfe: NumberFormatException) {
-                    Toast.makeText(this@ActivityCientifica, "Formato numerico erroneo",Toast.LENGTH_LONG)
-                }
-
-            }
-
-
-        }
-
-        onClickOper = View.OnClickListener { v ->
-
-            var dato = v as Button
-            operador = dato.text[0]
-            valorB = valorA
-            valorA = ""
-            txtResultado.setText("")
-        }
-
-        onClickOper1 = View.OnClickListener { v ->
-
-
-            var datos:Double? = obtenerDatos(v)
-            if(datos!=null){
-                var resultado = Math.sqrt(datos)
-                valorA = resultado.toString()
-                txtResultado.setText(resultado.toString())
-            }
-            else
-                Toast.makeText(this,"Error de Operador", Toast.LENGTH_LONG).show()
-        }
-
-        onClickOper2 = View.OnClickListener { v ->
-
-            var datos:Double? = obtenerDatos(v)
-            if(datos!=null){
-                var resultado = Math.sin(Math.toRadians(datos))
-                valorA = resultado.toString()
-                txtResultado.setText(resultado.toString())
-            }
-            else
-                Toast.makeText(this,"Error de Operador", Toast.LENGTH_LONG).show()
-        }
-
-        onClickOper3 = View.OnClickListener { v ->
-
-            var datos:Double? = obtenerDatos(v)
-            if(datos!=null){
-                var resultado = Math.cos(Math.toRadians(datos))
-                valorA = resultado.toString()
-                txtResultado.setText(resultado.toString())
-            }
-            else
-                Toast.makeText(this,"Error de Operador", Toast.LENGTH_LONG).show()
-        }
-
-        onClickOper4 = View.OnClickListener { v ->
-
-            var datos:Double? = obtenerDatos(v)
-            if(datos!=null){
-
-                var resultado = Math.tan(Math.toRadians(datos))
-                valorA = resultado.toString()
-                txtResultado.setText(resultado.toString())
-            }
-            else
-                Toast.makeText(this,"Error de Operador", Toast.LENGTH_LONG).show()
-        }
-
-        onClickOper5 = View.OnClickListener { v ->
-
-            var datos:Double? = obtenerDatos(v)
-            if(datos!=null){
-                var resultado :Double = (datos*100)/datos
-                valorA = resultado.toString()
-                txtResultado.setText(resultado.toString())
-            }
-            else
-                Toast.makeText(this,"Error de Operador", Toast.LENGTH_LONG).show()
-        }
-
-        onClickOper6 = View.OnClickListener { v ->
-
-            var datos:Double? = obtenerDatos(v)
-            if(datos!=null){
-                var resultado = Math.asin(Math.toRadians(datos))
-                valorA = resultado.toString()
-                txtResultado.setText(resultado.toString())
-            }
-            else
-                Toast.makeText(this,"Error de Operador", Toast.LENGTH_LONG).show()
-        }
-
-        onClickOper7 = View.OnClickListener { v ->
-
-            var datos:Double? = obtenerDatos(v)
-            if(datos!=null){
-
-                var resultado = Math.acos(Math.toRadians(datos))
-                valorA = resultado.toString()
-                txtResultado.setText(resultado.toString())
-            }
-            else
-                Toast.makeText(this,"Error de Operador", Toast.LENGTH_LONG).show()
-        }
-
-        onClickOper8 = View.OnClickListener { v ->
-
-            var datos:Double? = obtenerDatos(v)
-            if(datos!=null){
-
-                var resultado = Math.atan(Math.toRadians(datos))
-                valorA = resultado.toString()
-                txtResultado.setText(resultado.toString())
-            }
-            else
-                Toast.makeText(this,"Error de Operador", Toast.LENGTH_LONG).show()
-        }
-
-        onClickOper9 = View.OnClickListener { v ->
-
-            var datos:Double? = obtenerDatos(v)
-            if(datos!=null){
-                var resultado :Double = calcularFactorial()
-                valorA = resultado.toString()
-                txtResultado.setText(resultado.toString())
-            }
-            else
-                Toast.makeText(this,"Error de Operador", Toast.LENGTH_LONG).show()
-        }
-
-        onClickResulOper = object : View.OnClickListener {
-            var resultado = 0.0
-
-            override fun onClick(v: View) {
-
-                if(valorB != "" && valorA != ""){
-
-                    var b = parseFloat(valorB).toDouble()
-                    var a = parseFloat(valorA).toDouble()
-                    var esIndeterminado = false
-
-                    try {
-                        when (operador) {
-                            '+' -> resultado = b + a
-
-                            '-' -> resultado = b - a
-
-
-                            '/' -> {
-                                if(a != 0.0){
-                                    resultado = (parseFloat(valorB) / parseFloat(valorA)).toDouble()
-                                    esIndeterminado = false
-                                }
-
-                                else
-                                    esIndeterminado = true
-                            }
-
-
-                            '*' -> resultado = (parseFloat(valorB) * parseFloat(valorA)).toDouble()
-
-
-                            '^' -> resultado = Math.pow(a, b)
-
-                        }
-                        if(!esIndeterminado)
-                            txtResultado.setText(resultado.toString())
-                        else
-                            Toast.makeText(this@ActivityCientifica, "Indeterminacion", Toast.LENGTH_LONG)
-
-                    } catch (e: Exception) {
-                        Toast.makeText(this@ActivityCientifica, "Error de calculo", Toast.LENGTH_LONG)
-                    }
-                }
-
-            }
-
+        onClickResulOper = View.OnClickListener {v ->
+            obtenerResultado(v)
         }
 
 
-        onClickBorrar = View.OnClickListener {
-            txtResultado.setText("")
+        /*onClickFuncion = View.OnClickListener {v ->
+           if(txtResultado.text.toString()!=""){
+               var temporal = txtResultado.text.toString()
+               var dato :Button = v as Button
+               temporal = dato.text.toString()+"("+temporal+")"
+               valorA+=temporal
+           }
+        }*/
+
+        onClickLimpiar = View.OnClickListener {v ->
+            limpiar(v)
         }
 
-        onClickLimpiar = View.OnClickListener {
-            valorA = ""
-            valorB = ""
-            txtResultado.setText("")
+        onClickBorrar = View.OnClickListener { v ->
+            borrar(v)
         }
+		
+		onLongParentesis = View.OnLongClickListener {v ->
+            finParentesis = true
+			true
+		}
+		
+		/*onLongFuncion = View.OnLongClickListener {v ->
+            var dato :Button = v as Button
+            valorA = "a"+dato.text.toString()
+			true
+		}*/
     }
-
-    private fun calcularFactorial(): Double {
-        var factorial = 1.0
-        var numero = parseFloat(valorB).toDouble()
-
-        while (numero != 0.0) {
-            factorial *= numero
-            numero--
-        }
-        return factorial
-    }
-
-
-    private fun obtenerDatos(v:View):Double?{
-        var dato = v as Button
-        cont = dato.text.toString()
-        valorB = valorA
-        valorA = ""
-        txtResultado.setText("")
-
-        var a: Double? = null
-        if (valorB!= "")
-            return parseFloat(valorB).toDouble()
-        else
-            return null
-
-    }
+	
     private fun establecerEventos() {
 
-        //Elementos Numericos
+        
         if(onClick != null){
+			
+			//Elementos Numericos
             btn0.setOnClickListener(onClick)
             btn1.setOnClickListener(onClick)
             btn2.setOnClickListener(onClick)
@@ -368,50 +176,42 @@ class ActivityCientifica : ActivityPadre() {
             btn7.setOnClickListener(onClick)
             btn8.setOnClickListener(onClick)
             btn9.setOnClickListener(onClick)
-        }
+			
+			//Elementos Operadores
+			btnPunto.setOnClickListener(onClick)
+            btnSumar.setOnClickListener(onClick)
+            btnRestar.setOnClickListener(onClick)
+            btnDividir.setOnClickListener(onClick)
+            btnMultiplicar.setOnClickListener(onClick)
+            btnPotenciacion.setOnClickListener(onClick)
+            btnParDer.setOnClickListener(onClick)
+            btnParIzq.setOnClickListener(onClick)
+			
+			//Elementos funcion  
+            btnRadicacion.setOnClickListener(onClick)
+            btnSen.setOnClickListener(onClick)
+            btnCos.setOnClickListener(onClick)
+            btnTan.setOnClickListener(onClick)
+            btnPorciento.setOnClickListener(onClick)
 
-        //Elementos Operadores
-        if(onClickOper != null){
-            btnPunto.setOnClickListener(onClickPunto)
-            btnSumar.setOnClickListener(onClickOper)
-            btnRestar.setOnClickListener(onClickOper)
-            btnDividir.setOnClickListener(onClickOper)
-            btnMultiplicar.setOnClickListener(onClickOper)
-            btnPotenciacion.setOnClickListener(onClickOper)
-
-        }
-
-        if(onClickOper1 != null)
-            btnRadicacion.setOnClickListener(onClickOper1)
-
-        if(onClickOper2 != null)
-            btnSen.setOnClickListener(onClickOper2)
-
-        if(onClickOper3 != null)
-            btnCos.setOnClickListener(onClickOper3)
-
-        if(onClickOper4 != null)
-            btnTan.setOnClickListener(onClickOper4)
-
-        if(onClickOper5 != null)
-            btnPorciento.setOnClickListener(onClickOper5)
-
-        if(onClickOper6 != null)
-            btnaSen.setOnClickListener(onClickOper6)
-
-        if(onClickOper7 != null)
-            btnaCos.setOnClickListener(onClickOper7)
-
-        if(onClickOper8 != null)
-            btnaTan.setOnClickListener(onClickOper8)
-
-        if(onClickOper9 != null)
-            btnFact.setOnClickListener(onClickOper9)
-
-        if(onClickResulOper != null)
+            btnLogaritmo.setOnClickListener(onClick)
+            btnFact.setOnClickListener(onClick)
             btnIgual.setOnClickListener(onClickResulOper)
+            
+        }
 
 
+		
+		/**
+		* Para las funciones de arcoseno, arcocoseno y arcotangente usamos evento de pulsado 
+		* largo sobre seno, coseno y tangente, respectivamente.
+		*/
+		btnSen.setOnLongClickListener(onLongFuncion)
+        btnCos.setOnLongClickListener(onLongFuncion)     
+        btnTan.setOnLongClickListener(onLongFuncion)
+        
+
+	
         //Elementos de Borrado
         if(onClickBorrar != null)
             btnBorrar.setOnClickListener(onClickBorrar)
@@ -420,4 +220,49 @@ class ActivityCientifica : ActivityPadre() {
             btnLimpiar.setOnClickListener(onClickLimpiar)
 
     }
+	
+	
+	private fun ponerDato(v:View) {
+
+        var dato = v as Button
+
+        if(dato.text.toString() == "n!")
+            valorA += "!"
+        else
+            valorA += dato.text
+
+        txtResultado.setText(valorA)
+    }
+	
+	private fun obtenerResultado(v:View) {
+	
+        if(txtResultado.text.toString()!=""){
+            try{
+                resul = txtResultado.text.toString()
+                txtResultado.setText("")
+                var datoResul:Double = EvaluadorExpresiones(resul).resultado
+                txtResultado.setText(datoResul.toString())
+                resul = ""
+            }
+
+            catch (e: Exception){Toast.makeText(this,"Expresion invalida",Toast.LENGTH_LONG).show()}
+		}
+    }
+	
+	private fun limpiar(v:View){
+        if(txtResultado.text.toString()!= ""){
+            valorA = ""
+            txtResultado.setText(valorA)
+            resul = ""
+        }
+	}
+	
+	private fun borrar(v:View){
+        if(txtResultado.text.toString()!= ""){
+		    valorA = valorA.substring(0,valorA.length-1)
+            txtResultado.setText(valorA)
+            resul = txtResultado.text.toString()
+        }
+	}
+	
 }

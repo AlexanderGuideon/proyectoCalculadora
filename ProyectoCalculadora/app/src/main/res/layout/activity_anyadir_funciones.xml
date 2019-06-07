@@ -10,12 +10,12 @@
             android:layout_height="50dp"
             android:inputType="text"
             android:ems="10"
-            android:id="@+id/txtNombre"
+            android:id="@+id/edtTitle"
             android:hint="Nombre de operacion"
             android:background="#ffe0ff91"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginBottom="10dp" app:layout_constraintBottom_toTopOf="@id/txtResultado"
+            android:layout_marginBottom="10dp" app:layout_constraintBottom_toTopOf="@id/edtContent"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
             android:layout_marginEnd="8dp" android:layout_marginRight="8dp" android:layout_marginTop="50dp"
     />
@@ -25,12 +25,12 @@
             android:layout_height="50dp"
             android:inputType="text"
             android:ems="10"
-            android:id="@+id/txtResultado"
+            android:id="@+id/edtContent"
             android:background="#ffe0ff91"
             android:focusable="false"
             android:hint="Operacion"
             android:layout_marginBottom="25dp" app:layout_constraintBottom_toTopOf="@+id/panelBotones"
-            app:layout_constraintTop_toBottomOf="@id/txtNombre"
+            app:layout_constraintTop_toBottomOf="@id/edtTitle"
             android:layout_marginTop="10dp" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginLeft="8dp" android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
@@ -39,14 +39,14 @@
             android:id="@+id/panelBotones"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txtResultado"
+            android:layout_below="@+id/edtContent"
             android:layout_centerHorizontal="true"
             android:background="#ffe0ff91"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp" android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
             android:layout_marginTop="25dp"
-            app:layout_constraintTop_toBottomOf="@+id/txtResultado" android:layout_marginBottom="25dp"
+            app:layout_constraintTop_toBottomOf="@+id/edtContent" android:layout_marginBottom="25dp"
             app:layout_constraintBottom_toTopOf="@+id/btAnyadir">
 
         <LinearLayout
@@ -237,7 +237,7 @@
                     android:id="@+id/btnRaiz"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="√"/>
+                    android:text="sqrt"/>
 
         </LinearLayout>
 

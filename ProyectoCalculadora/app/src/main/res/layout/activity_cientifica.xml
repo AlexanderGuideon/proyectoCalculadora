@@ -12,7 +12,7 @@
             android:layout_height="180dp"
             android:inputType="number"
             android:ems="10"
-            android:id="@+id/txtResultado"
+            android:id="@+id/edtContent"
             android:background="#ffe0ff91"
             android:layout_marginTop="8dp"
             android:focusable="false"
@@ -27,11 +27,11 @@
             android:id="@+id/panelBotones"
             android:layout_width="wrap_content"
             android:layout_height="346dp"
-            android:layout_below="@+id/txtResultado"
+            android:layout_below="@+id/edtContent"
             android:layout_centerHorizontal="true"
             android:background="#ffe0ff91"
             android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtResultado"
+            app:layout_constraintTop_toBottomOf="@+id/edtContent"
             android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"
             android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginLeft="8dp" app:layout_constraintHorizontal_bias="0.488">
@@ -45,13 +45,13 @@
                     android:id="@+id/btnSen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sen"/>
+                    android:text="sen"/>
 
             <Button
-                    android:id="@+id/btnaSen"
+                    android:id="@+id/btnRaiz"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="aSen"/>
+                    android:text="sqrt"/>
 
             <Button
                     android:id="@+id/btnPotencia"
@@ -95,19 +95,19 @@
                     android:id="@+id/btnCos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cos"/>
+                    android:text="cos"/>
 
             <Button
-                    android:id="@+id/btnaCos"
+                    android:id="@+id/btnLogaritmo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="aCos"/>
+                    android:text="log"/>
 
             <Button
-                    android:id="@+id/btnRaiz"
+                    android:id="@+id/btnParDer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="√"/>
+                    android:text="("/>
 
             <Button
                     android:id="@+id/btn8"
@@ -148,15 +148,15 @@
                     android:layout_height="wrap_content"
                     android:text="tan"/>
             <Button
-                    android:id="@+id/btnaTan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="aTan"/>
-            <Button
                     android:id="@+id/btnBorrar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="DEL"/>
+                    android:text="del"/>
+            <Button
+                    android:id="@+id/btnParIzq"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=")"/>
 
             <Button
                     android:id="@+id/btn9"
@@ -199,7 +199,7 @@
                     android:id="@+id/btnLimpiar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="AC"/>
+                    android:text="ac"/>
 
             <Button
                     android:id="@+id/btnPorciento"

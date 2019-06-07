@@ -1,9 +1,11 @@
 package com.example.proyectocalculadora
 
-class Matriz {
-    private val M: Int             // numero de filas
-    private val N: Int             // numero de columnas
-    private val data: Array<IntArray>   // matriz
+import java.io.Serializable
+
+class Matriz:Serializable{
+    var M: Int             // numero de filas
+    var N: Int             // numero de columnas
+    var data: Array<IntArray>  // matriz
 
     // constructor
     constructor(M: Int, N: Int) {

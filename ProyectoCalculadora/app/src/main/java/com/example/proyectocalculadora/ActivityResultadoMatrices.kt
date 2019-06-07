@@ -1,10 +1,12 @@
 package com.example.proyectocalculadora
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.content.Intent
+
+
 
 class ActivityResultadoMatrices : ActivityPadre() {
 
@@ -30,12 +32,14 @@ class ActivityResultadoMatrices : ActivityPadre() {
 
     private fun establecerEventos() {
         onClickVolver = View.OnClickListener { v ->
-
+            val intent = Intent(this, ActivityMatrices::class.java)
+            intent.putExtra("matriz",matriz)
+            startActivity(intent)
         }
     }
 
     private fun obtenerElementos() {
-        txtResultado = findViewById<View>(R.id.txtResultado) as EditText
+        txtResultado = findViewById<View>(R.id.edtContent) as EditText
 
         btVolver = findViewById<View>(R.id.btVolver) as Button
     }

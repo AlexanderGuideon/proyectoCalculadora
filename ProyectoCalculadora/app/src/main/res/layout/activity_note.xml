@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="15dp">
+
+    <EditText
+            android:id="@+id/edtTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Java Sample Approach"
+            android:inputType="textPersonName" tools:layout_editor_absoluteY="103dp"
+            tools:layout_editor_absoluteX="13dp"/>
+
+    <EditText
+            android:id="@+id/edtContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Java technology, Spring Framework - approach to Java by Sample."
+            android:inputType="textMultiLine" tools:layout_editor_absoluteY="182dp"
+            tools:layout_editor_absoluteX="16dp"/>
+
+    <Button
+            android:id="@+id/btAnyadir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add" tools:layout_editor_absoluteY="386dp" tools:layout_editor_absoluteX="0dp"/>
+</android.support.constraint.ConstraintLayout>

@@ -17,13 +17,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/txtResultado"/>
+            app:layout_constraintBottom_toTopOf="@+id/edtContent"/>
     <EditText
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:inputType="text"
             android:ems="10"
-            android:id="@+id/txtResultado"
+            android:id="@+id/edtContent"
             android:background="#ffe0ff91" android:hint="Resultado"
             app:layout_constraintTop_toBottomOf="@+id/titulo" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +33,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:id="@+id/btVolver" android:background="#ffe0ff91"
-            app:layout_constraintTop_toBottomOf="@+id/txtResultado"
+            app:layout_constraintTop_toBottomOf="@+id/edtContent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>

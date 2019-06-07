@@ -9,6 +9,16 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".ActivityAnyadirFunciones">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".ActivityFunciones">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".ActivityResultadoMatrices">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -30,16 +40,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".ActivityMatrices">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-        </activity>
-        <activity android:name=".ActivityAnyadirFunciones">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-        </activity>
-        <activity android:name=".ActivityFunciones">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
