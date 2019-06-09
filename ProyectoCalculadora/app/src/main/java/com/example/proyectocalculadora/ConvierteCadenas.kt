@@ -25,7 +25,7 @@ class ConvierteCadenas {
 
             if(pattern.containsMatchIn(valor)){
                 when{
-                    valor == "he" || valor == "eh" || valor == "e" -> simbolo="π"
+                    valor == "he" || valor == "eh" || valor == "e" -> simbolo=="π"
                     valor == "pi" -> simbolo="3.1415926535"
                     valor == "con" || valor=="coma" -> operador="."
                     valor == "factorial" -> operador="!"
@@ -35,7 +35,7 @@ class ConvierteCadenas {
                     valor == "por" || valor == "x" -> operador = "*"
                     valor == "elevado" -> operador = "^"
                     valor == "porciento" || valor == "ciento"-> operador = "%"
-                    valor == "raiz"-> operador = "√"
+                    valor == "raiz" || valor == "raíz"-> funcion = "sqrt("
                     valor == "logaritmo"-> funcion= "log("
                     valor == "seno"-> funcion= "sin("
                     valor == "coseno"-> funcion= "cos("
@@ -56,8 +56,17 @@ class ConvierteCadenas {
 
             }
             else{
+
+
                 if(patternNum.containsMatchIn(valor)){
-                    numero = valor
+                    if(valor.contains(",")){
+                        var arraychar = valor.split(",")
+                        var StrValor = (arraychar[0]+"."+arraychar[1]).toString()
+                        numero = StrValor
+                    }
+                    else
+                        numero = valor
+
                     if(funcion != ""){
                         numero = funcion + valor +")"
                         funcion = ""
