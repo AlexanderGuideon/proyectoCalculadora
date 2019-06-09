@@ -7,4 +7,5 @@
     <string name="estandar"/>
     <string name="title_activity_herramientas">ActivityHerramientas</string>
     <string name="eliminar_confirmacion">eliminado</string>
+    <string name="lista_vacia">lista vacia</string>
 </resources>

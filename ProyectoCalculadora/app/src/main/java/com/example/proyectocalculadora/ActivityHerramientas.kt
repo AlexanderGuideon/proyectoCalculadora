@@ -15,7 +15,7 @@ class ActivityHerramientas : ActivityPadre() {
         setContentView(R.layout.activity_herramientas)
 
         val btEcuaciones = findViewById<Button>(R.id.opcionEcuaciones)
-        val btMatrices = findViewById<Button>(R.id.opcionMatrices)
+
         val btMcmMcd = findViewById<Button>(R.id.opcionMcmMcd)
         val btVozTexto = findViewById<Button>(R.id.opcionVozTexto)
 
@@ -23,9 +23,6 @@ class ActivityHerramientas : ActivityPadre() {
             accionEcuaciones()
         }
 
-        btMatrices.setOnClickListener {
-            accionMatrices()
-        }
 
         btMcmMcd.setOnClickListener {
             accionMcmMcd()
@@ -37,7 +34,8 @@ class ActivityHerramientas : ActivityPadre() {
     }
 
     private fun accionVozTexto() {
-        Toast.makeText(this, "Estamos trabajando en ello", Toast.LENGTH_LONG).show()
+        val intent = Intent(this, ReconocimentoVoz::class.java)
+        startActivityForResult(intent, 0)
     }
 
     private fun accionMcmMcd() {
@@ -50,7 +48,5 @@ class ActivityHerramientas : ActivityPadre() {
         startActivityForResult(intent, 0)
     }
 
-    private fun accionMatrices() {
-        Toast.makeText(this, "Estamos trabajando en ello", Toast.LENGTH_LONG).show()
-    }
+
 }

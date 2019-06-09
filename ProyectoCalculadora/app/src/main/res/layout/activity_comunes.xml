@@ -47,7 +47,7 @@
             android:text="Maximo Comun Divisor"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:id="@+id/btMCM"
+            android:id="@+id/btMCD"
             android:background="#ffe0ff91"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
@@ -55,18 +55,18 @@
             android:layout_marginStart="8dp"
             app:layout_constraintHorizontal_bias="0.497" android:layout_marginTop="50dp"
             app:layout_constraintTop_toBottomOf="@+id/edtContent" android:layout_marginBottom="25dp"
-            app:layout_constraintBottom_toTopOf="@+id/btMCD"/>
+            app:layout_constraintBottom_toTopOf="@+id/btMCM"/>
     <Button
             android:text="Minimo Comun Multiplo"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:id="@+id/btMCD"
+            android:id="@+id/btMCM"
             android:layout_marginBottom="100dp"
             app:layout_constraintBottom_toBottomOf="parent"
             android:background="#ffe0ff91" android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginRight="8dp" android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-            android:layout_marginTop="25dp" app:layout_constraintTop_toBottomOf="@+id/btMCM"/>
+            android:layout_marginTop="25dp" app:layout_constraintTop_toBottomOf="@+id/btMCD"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="50dp"
@@ -79,6 +79,6 @@
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-            android:layout_marginBottom="25dp" app:layout_constraintBottom_toTopOf="@+id/btMCM"
+            android:layout_marginBottom="25dp" app:layout_constraintBottom_toTopOf="@+id/btMCD"
             android:background="#ffe0ff91"/>
 </android.support.constraint.ConstraintLayout>

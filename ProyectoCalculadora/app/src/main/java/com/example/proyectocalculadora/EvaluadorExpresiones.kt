@@ -6,7 +6,8 @@ class EvaluadorExpresiones {
     var resultado :Double = 0.0
 
     constructor(expresion : String){
-         resultado = eval(expresion)
+        resultado = eval(expresion)
+
     }
 
 
@@ -81,7 +82,7 @@ class EvaluadorExpresiones {
                 var x = parseFactor()
 
                 while (true) {
-                    if (eat('*'.toInt()))
+                    if (eat('x'.toInt())||eat('*'.toInt()))
                         x *= parseFactor() //Multiplicacion
                     else if (eat('/'.toInt()))
                         x /= parseFactor() //Division
@@ -103,15 +104,17 @@ class EvaluadorExpresiones {
                 if (eat('('.toInt())) { //Parentesis
                     x = parseExpression()
                     eat(')'.toInt())
-                } else if (ch >= '0'.toInt() && ch <= '9'.toInt() || ch == '.'.toInt()) { //Numeros
-                    while (ch >= '0'.toInt() && ch <= '9'.toInt() || ch == '.'.toInt()) nextChar()
+                } else if (ch >= '0'.toInt() && ch <= '9'.toInt() || ch == '.'.toInt() || ch == ','.toInt()) { //Numeros
+                    if(ch == ','.toInt())
+                        ch = '.'.toInt()
+                    while (ch >= '0'.toInt() && ch <= '9'.toInt() || ch == '.'.toInt() || ch == ','.toInt()) nextChar()
                     x = java.lang.Double.parseDouble(str.substring(startPos, this.pos))
                 } else if (ch >= 'a'.toInt() && ch <= 'z'.toInt()) { //Funciones
 
                     while (ch >= 'a'.toInt() && ch <= 'z'.toInt()) nextChar()
                     val func = str.substring(startPos, this.pos)
                     x = parseFactor()
-                    if (func == "sqrt")
+                    if (func == "sqrt" || func == "√")
                         x = Math.sqrt(x)//Radicación
                     else if (func == "sin")
                         x = Math.sin(Math.toRadians(x))//Seno
@@ -132,10 +135,11 @@ class EvaluadorExpresiones {
                 } else {
                     throw RuntimeException("Caracter: '" + ch.toChar() + "' inesperado. Error de sintaxis.")
                 }
-
+                if (eat('π'.toInt())) x = 3.141592//Pi
+                if (eat('e'.toInt())) x = 2.71828//E
                 if (eat('^'.toInt())) x = Math.pow(x, parseFactor())//Potencia
                 if (eat('!'.toInt())) x = calcularFactorial(x)//Factorial
-                if (eat('%'.toInt())) x = x * 100 / x//Porcentaje
+                if (eat('%'.toInt())) x = x / 100//Porcentaje
 
                 return x
             }

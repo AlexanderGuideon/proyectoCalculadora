@@ -51,6 +51,7 @@ class ActivityEstandar : ActivityPadre() {
     private var onClickResulOper:View.OnClickListener? = null
     private var onClickBorrar:View.OnClickListener? = null
     private var onClickLimpiar:View.OnClickListener? = null
+    private var onClickFuncion:View.OnClickListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -117,9 +118,11 @@ class ActivityEstandar : ActivityPadre() {
             btnDividir.setOnClickListener(onClick)
             btnMultiplicar.setOnClickListener(onClick)
             btnPotenciacion.setOnClickListener(onClick)
-            btnRadicacion.setOnClickListener(onClick)
+
         }
 
+        if(onClickFuncion != null)
+            btnRadicacion.setOnClickListener(onClickFuncion)
         
         if(onClickResulOper != null)
             btnIgual.setOnClickListener(onClickResulOper)
@@ -141,6 +144,14 @@ class ActivityEstandar : ActivityPadre() {
             ponerDato(v)
         }
 
+        onClickFuncion = View.OnClickListener { v ->
+            if(txtResultado.text.toString() != ""){
+                var dato = v as Button
+                valorA += dato.text.toString() +"("+txtResultado.text.toString()+")"
+            }
+            txtResultado.setText(valorA)
+        }
+
         onClickResulOper = View.OnClickListener {v ->
             obtenerResultado(v)
         }
@@ -157,40 +168,14 @@ class ActivityEstandar : ActivityPadre() {
 
     private fun ponerDato(v:View) {
         var dato = v as Button
-        if(dato.text.toString() == "sqrt")
-            esFun = true
-
-        if(esFun){
-            valorA += dato.text.toString()+"("
-            esFun = false
-        }
-        else{
-            if(dato.text.toString() == "n!")
-                valorA += "!"
-            else if(!esFun){
-                if(!(Integer.parseInt(dato.text.toString())>=0)&& !(Integer.parseInt(dato.text.toString())>=9) && !esOper(dato.text.toString()))
-                    valorA += dato.text
-                else
-                    valorA += ")"
-
-                esFun = false
-
-            }
-
-
-        }
+        if(dato.text.toString() == "n!")
+            valorA += "!"
+        else
+            valorA += dato.text
 
         txtResultado.setText(valorA)
     }
 
-
-
-    private fun esOper(dato: String):Boolean{
-        when (dato) {
-            "+", "-", "*", "^", "/", "." -> return true
-            else -> return false
-        }
-    }
 
 	private fun obtenerResultado(v:View) {
 

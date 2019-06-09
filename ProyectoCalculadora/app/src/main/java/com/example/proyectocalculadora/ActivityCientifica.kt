@@ -130,16 +130,6 @@ class ActivityCientifica : ActivityPadre() {
             obtenerResultado(v)
         }
 
-
-        /*onClickFuncion = View.OnClickListener {v ->
-           if(txtResultado.text.toString()!=""){
-               var temporal = txtResultado.text.toString()
-               var dato :Button = v as Button
-               temporal = dato.text.toString()+"("+temporal+")"
-               valorA+=temporal
-           }
-        }*/
-
         onClickLimpiar = View.OnClickListener {v ->
             limpiar(v)
         }
@@ -147,17 +137,8 @@ class ActivityCientifica : ActivityPadre() {
         onClickBorrar = View.OnClickListener { v ->
             borrar(v)
         }
-		
-		onLongParentesis = View.OnLongClickListener {v ->
-            finParentesis = true
-			true
-		}
-		
-		/*onLongFuncion = View.OnLongClickListener {v ->
-            var dato :Button = v as Button
-            valorA = "a"+dato.text.toString()
-			true
-		}*/
+
+
     }
 	
     private fun establecerEventos() {

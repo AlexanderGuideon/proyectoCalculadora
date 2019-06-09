@@ -62,7 +62,7 @@ class ActivityComunes : ActivityPadre() {
                         dato2 -= dato1
                 }
 
-                txtResul.setText("MCD de "+num1.toString()+"y"+num2.toString()+" = " +dato1.toString())
+                txtResul.setText("MCD de "+num1.toString()+" y "+num2.toString()+" = " +dato1.toString())
                 campoNumUno.setText("")
                 campoNumDos.setText("")
             }
@@ -102,7 +102,7 @@ class ActivityComunes : ActivityPadre() {
                 }
 
                 val mcm = dato1 * dato2 / mcd
-                txtResul.setText("MCM de "+num1.toString()+"y"+num2.toString()+" = " +mcm.toString())
+                txtResul.setText("MCM de "+num1.toString()+" y "+num2.toString()+" = " +mcm.toString())
                 campoNumUno.setText("")
                 campoNumDos.setText("")
             }

@@ -1,143 +1,125 @@
 package com.example.proyectocalculadora;
 
-
-
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.*;
+import android.view.ViewStub;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
+import com.example.proyectocalculadora.entidades.Funciones;
+import com.example.proyectocalculadora.utilidades.AdaptadorLista;
+import com.example.proyectocalculadora.utilidades.ConexionSQLiteHelper;
+import com.example.proyectocalculadora.utilidades.FuncionesBD;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class ActivityFunciones extends ActivityPadre {
+public class ActivityFunciones extends AppCompatActivity {
 
-    private MiArrayAdapter aa;
-    private SQLiteHelper helper;
-    private SQLiteDatabase bd;
-    private ArrayList<Funcion> funciones;
-    private ListView lista;
-    private Button opcAnyadirFunciones;
-    private String nombre;
-    private String expresion;
+
+    ListView listaFunciones;
+    ArrayList<Funciones> funciones;
+    AdaptadorLista adaptador;
+    FuncionesBD gestionBD;
+    Button agregar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_funciones);
-        opcAnyadirFunciones = findViewById(R.id.opcAnyadirFunciones);
 
-        abrirBD();
-
-        Intent intent = getIntent();
-        if(intent != null){
-
-            nombre = intent.getStringExtra("Nombre");
-            expresion = intent.getStringExtra("Expresion");
-            startActivity(intent);
-
-            agregar();
+        Intent i = getIntent();
+        if(i!=null){
+            String mensaje = i.getStringExtra("mensaje");
+            if(mensaje != null){
+                Toast.makeText(ActivityFunciones.this,mensaje,Toast.LENGTH_LONG).show();
+                ConexionSQLiteHelper conn = new ConexionSQLiteHelper(this);
+                gestionBD = new FuncionesBD(conn);
+                listaFunciones = (ListView) findViewById(R.id.listaObras);
+                if (gestionBD.contarObras() == 0) {
+                    gestionBD.registarFunciones(this);
+                }
+                funciones = gestionBD.generarObras();
+            }
         }
 
 
-        funciones = cargarLista();
+        agregar = findViewById(R.id.botonAgregar);
+        ConexionSQLiteHelper conn = new ConexionSQLiteHelper(this);
+        gestionBD = new FuncionesBD(conn);
+        listaFunciones = (ListView) findViewById(R.id.listaObras);
 
-
-        if(funciones != null){
-            establecerLista();
+        /* Si ejecuta por primera vez y los datos están vacios se llenan*/
+        if (gestionBD.contarObras() == 0) {
+            gestionBD.registarFunciones(this);
+        }
+        funciones = gestionBD.generarObras();
+        //Si esta vacía la lista de obras se infla el ViewStub
+        if(funciones.size() == 0){
+            ViewStub stub = findViewById(R.id.stub);
+            View inflated = stub.inflate();
         }
 
+        adaptador = new AdaptadorLista(this, funciones);
+        listaFunciones.setAdapter(adaptador);
+        listaFunciones.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+               // Toast.makeText(ActivityFunciones.this, "Id: "+position,Toast.LENGTH_LONG).show();
+               abrirFuncion(parent, view, position, id);
+            }
+        });
 
-        opcAnyadirFunciones.setOnClickListener(new View.OnClickListener(){
+        agregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),ActivityAnyadirFunciones.class);
-                startActivity(intent);
+                abrirAgregar(v);
             }
         });
 
 
+
     }
 
-    private void agregar() {
-        if(bd != null){
-            bd.execSQL("Insert into funciones values(nombre,expresion)");
+    private void abrirAgregar(View v) {
+        try{
+            Intent i = new Intent(this, ActivityAgregarFunciones.class);
+            startActivity(i);
         }
-    }
-
-    private void establecerLista() {
-        lista = (ListView) findViewById(R.id.lista);
-        //ArrayAdapter <Integer> aa = new ArrayAdapter<Integer>(this, R.layout.item_basico, array);
-        //ArrayAdapter<Integer> aa = new ArrayAdapter<Integer>(this, android.R.layout.simple_list_item_1, array);//en android.r hay layouts predefinidos
-        aa = new MiArrayAdapter(this, funciones);
-        lista.setAdapter(aa);
-
-
-        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(),"Pulsado ítem: "+ i, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        lista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(),"Pulsado largo ítem: "+ i, Toast.LENGTH_SHORT).show();
-
-                ListView lista = (ListView) findViewById(R.id.lista);
-                /*Funcion lib = ((MiArrayAdapter)lista.getAdapter()).getItem(i);
-                ((MiArrayAdapter)lista.getAdapter()).remove(lib);*/
-                Funcion lib = (Funcion)aa.getItem(i);
-                aa.remove(lib);
-
-                return true;
-            }
-        });
-
-
-        lista.setEmptyView((findViewById(R.id.vacia)));
-    }
-
-    private ArrayList<Funcion> cargarLista() {
-        if(bd != null){
-            ArrayList<Funcion> lista = new ArrayList<Funcion>();
-            String[] valores_recuperar = {"nombre", "expresion"};
-            Cursor c = bd.query("contactos", valores_recuperar,
-                    null, null, null, null, null, null);
-            c.moveToFirst();
-            do {
-                Funcion funcion= new Funcion(c.getString(0), c.getString(1));
-                lista.add(funcion);
-            } while (c.moveToNext());
-            c.close();
-            return lista;
+        catch(Exception e){
+            Toast.makeText(ActivityFunciones.this,"Error Agregar",Toast.LENGTH_SHORT).show();
         }
-        return null;
+
     }
 
-    private void abrirBD() {
+
+    public void abrirFuncion(AdapterView<?> parent, View view, int position, long id) {
+
+
+        String titulo = funciones.get(position).getTitulo();
+        String expresion = funciones.get(position).getExpresion();
+        Funciones funcion = new Funciones(titulo,expresion);
+
+
 
         try{
-            //Abrimos la base de datos 'DBFunciones' en modo escritura
-            helper = new SQLiteHelper(this, "DBFunciones", null, 1);
+            Intent i = new Intent(this, ActivityVerFuncion.class);
+            i.putExtra("funcion", funcion);
 
-            bd = helper.getWritableDatabase();
 
-        }catch(Exception e){
-            Toast.makeText(this,"Error al abrir bd",Toast.LENGTH_LONG).show();
+
+            startActivity(i);
+
+        }catch (Exception e){
+            Toast.makeText(ActivityFunciones.this,"No esta:"+ funcion.toString(),Toast.LENGTH_SHORT).show();
         }
 
-    }
-
-    private void cerrarBD() {
-
-        if(bd != null)
-            bd.close();
-        else
-            Toast.makeText(this,"Error al cerrar bd",Toast.LENGTH_LONG).show();
     }
 
 
