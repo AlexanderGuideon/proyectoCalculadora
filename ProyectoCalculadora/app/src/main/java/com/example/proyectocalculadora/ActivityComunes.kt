@@ -15,6 +15,8 @@ class ActivityComunes : ActivityPadre() {
 
     internal lateinit var campoNumUno: EditText
     internal lateinit var campoNumDos: EditText
+    internal lateinit var btMCM:Button
+    internal lateinit var btMCD:Button
 
     internal lateinit var txtResul: EditText
 
@@ -23,13 +25,19 @@ class ActivityComunes : ActivityPadre() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comunes)
 
-        val btMCM = findViewById<View>(R.id.btMCM) as Button
-        val btMCD = findViewById<View>(R.id.btMCD) as Button
+        encontrarElementos()
+        establecerEventos()
+        registrarEventos()
 
+    }
+
+    private fun registrarEventos() {
         campoNumUno = findViewById<View>(R.id.campoNumUno) as EditText
         campoNumDos = findViewById<View>(R.id.campoNumDos) as EditText
         txtResul = findViewById<View>(R.id.edtContent) as EditText
+    }
 
+    private fun establecerEventos() {
 
         btMCM.setOnClickListener {
             calcularMCM()
@@ -38,7 +46,11 @@ class ActivityComunes : ActivityPadre() {
         btMCD.setOnClickListener {
             calcularMCD()
         }
+    }
 
+    private fun encontrarElementos() {
+        btMCM = findViewById<View>(R.id.btMCM) as Button
+        btMCD = findViewById<View>(R.id.btMCD) as Button
     }
 
     /**

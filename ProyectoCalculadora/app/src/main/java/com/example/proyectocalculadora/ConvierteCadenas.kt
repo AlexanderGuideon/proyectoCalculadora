@@ -1,5 +1,10 @@
 package com.example.proyectocalculadora
 
+/**
+ * Clase que convierte la cadena recogida por Reconocimiento voz e interpreta
+ * los operadores y las funciones que correspondan.
+ */
+
 class ConvierteCadenas {
 
     var resul:Double = 0.0
@@ -18,15 +23,13 @@ class ConvierteCadenas {
         var operador: String = ""
         var numero:String = ""
         var simbolo:String = ""
-        var esParder:Boolean = false
-        var esParIzq:Boolean = false
         for (valor :String in array){
 
 
             if(pattern.containsMatchIn(valor)){
                 when{
-                    valor == "he" || valor == "eh" || valor == "e" -> simbolo=="π"
-                    valor == "pi" -> simbolo="3.1415926535"
+                    valor == "abre"->operador = "("
+                    valor == "cierra"->operador = ")"
                     valor == "con" || valor=="coma" -> operador="."
                     valor == "factorial" -> operador="!"
                     valor == "menos" -> operador = "-"
@@ -37,10 +40,10 @@ class ConvierteCadenas {
                     valor == "porciento" || valor == "ciento"-> operador = "%"
                     valor == "raiz" || valor == "raíz"-> funcion = "sqrt("
                     valor == "logaritmo"-> funcion= "log("
-                    valor == "seno"-> funcion= "sin("
+                    valor == "seno"-> funcion= "sen("
                     valor == "coseno"-> funcion= "cos("
                     valor == "tangente"-> funcion= "tan("
-                    valor == "arcoseno"-> funcion= "asin("
+                    valor == "arcoseno"-> funcion= "asen("
                     valor == "arcocoseno"-> funcion= "acos("
                     valor == "arcotangente" -> funcion= "atan("
 
@@ -48,10 +51,6 @@ class ConvierteCadenas {
                 if(operador != ""){
                     operacion += operador
                     operador=""
-                }
-                if(simbolo != ""){
-                    operacion += simbolo
-                    simbolo=""
                 }
 
             }
@@ -66,6 +65,8 @@ class ConvierteCadenas {
                     }
                     else
                         numero = valor
+
+
 
                     if(funcion != ""){
                         numero = funcion + valor +")"

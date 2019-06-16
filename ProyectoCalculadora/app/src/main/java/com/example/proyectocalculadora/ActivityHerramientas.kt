@@ -1,17 +1,16 @@
 package com.example.proyectocalculadora
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Window
 import android.widget.Button
-import android.widget.Toast
 
+/**
+ * ActivityHerramientas: Muestra las herramientas: Calculos con Ecuaciones, MCM/MCD y Reconocimiento por Voz
+ */
 class ActivityHerramientas : ActivityPadre() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_herramientas)
 
         val btEcuaciones = findViewById<Button>(R.id.opcionEcuaciones)

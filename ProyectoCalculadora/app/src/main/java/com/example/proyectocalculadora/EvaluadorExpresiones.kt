@@ -1,5 +1,9 @@
 package com.example.proyectocalculadora
 
+/**
+ * Clase: EvaluadorExpresiones
+ * Desc: Compureba que sea una expresion valida y si lo es devuelve su resultado
+ */
 class EvaluadorExpresiones {
 
 
@@ -114,15 +118,16 @@ class EvaluadorExpresiones {
                     while (ch >= 'a'.toInt() && ch <= 'z'.toInt()) nextChar()
                     val func = str.substring(startPos, this.pos)
                     x = parseFactor()
+
                     if (func == "sqrt" || func == "√")
                         x = Math.sqrt(x)//Radicación
-                    else if (func == "sin")
+                    else if (func == "sen")
                         x = Math.sin(Math.toRadians(x))//Seno
                     else if (func == "cos")
                         x = Math.cos(Math.toRadians(x))//Coseno
                     else if (func == "tan")
                         x = Math.tan(Math.toRadians(x))//Tangente
-                    else if (func == "asin")
+                    else if (func == "asen")
                         x = Math.asin(Math.toRadians(x))//Arcoseno
                     else if (func == "acos")
                         x = Math.acos(Math.toRadians(x))//Arcocoseno
@@ -135,8 +140,7 @@ class EvaluadorExpresiones {
                 } else {
                     throw RuntimeException("Caracter: '" + ch.toChar() + "' inesperado. Error de sintaxis.")
                 }
-                if (eat('π'.toInt())) x = 3.141592//Pi
-                if (eat('e'.toInt())) x = 2.71828//E
+
                 if (eat('^'.toInt())) x = Math.pow(x, parseFactor())//Potencia
                 if (eat('!'.toInt())) x = calcularFactorial(x)//Factorial
                 if (eat('%'.toInt())) x = x / 100//Porcentaje

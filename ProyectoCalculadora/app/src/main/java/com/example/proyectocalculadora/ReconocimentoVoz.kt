@@ -7,9 +7,13 @@ import android.widget.TextView
 import android.widget.Toast
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 
-
+/**
+ * ReconocimientoVoz: Recoge las operaciones que el usuario diga por voz y las envia al
+ * conversor de cadenas y este a su vez al evaluador de expresiones.
+ */
 class ReconocimentoVoz:ActivityPadre() {
 
     lateinit var grabar: TextView
@@ -20,62 +24,79 @@ class ReconocimentoVoz:ActivityPadre() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reconocimiento_voz)
-        grabar = findViewById(R.id.txtGrabarVoz) as TextView
-        hablar = findViewById((R.id.btnHablar))
-        calcular = findViewById(R.id.btnCalcular)
+        encontrarElementos()
+        establecerEventos()
+    }
 
+    private fun establecerEventos() {
         hablar.setOnClickListener { v ->
-            grabar.setText("")
-            val intentActionRecognizeSpeech = Intent(
-                RecognizerIntent.ACTION_RECOGNIZE_SPEECH
-            )
-            // Configura el Lenguaje (Español-México)
-            intentActionRecognizeSpeech.putExtra(
-                RecognizerIntent.EXTRA_LANGUAGE_MODEL, "es-Es"
-            )
-            try {
-                startActivityForResult(
-                    intentActionRecognizeSpeech,
-                    RECOGNIZE_SPEECH_ACTIVITY
-                )
-            } catch (a: ActivityNotFoundException) {
-                Toast.makeText(
-                    applicationContext,
-                    "Tú dispositivo no soporta el reconocimiento por voz",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+            accionHablar(v)
         }
 
         calcular.setOnClickListener { v ->
 
-            try{
-                var texto = grabar.text.toString()
-                if(texto != ""){
+            accionCalcular(v)
 
-                    var expresion = ConvierteCadenas(texto).resul
+        }
+    }
 
-                    grabar.setText(expresion.toString())
+    private fun accionCalcular(v: View) {
 
-                }
+        try{
 
-                else{
-                    Toast.makeText(
-                        applicationContext,
-                        "Sin texto",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+            var texto = grabar.text.toString()
+            if(texto != ""){
+
+                var expresion = ConvierteCadenas(texto).resul
+
+                grabar.setText(expresion.toString())
+
             }
-            catch (a: Exception) {
+            else{
                 Toast.makeText(
                     applicationContext,
-                    "Texto invalido",
+                    "Sin texto",
                     Toast.LENGTH_SHORT
                 ).show()
             }
-
         }
+        catch (a: Exception) {
+            Toast.makeText(
+                applicationContext,
+                "Texto invalido",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private fun accionHablar(v: View) {
+
+        grabar.setText("")
+        val intentActionRecognizeSpeech = Intent(
+            RecognizerIntent.ACTION_RECOGNIZE_SPEECH
+        )
+        // Configura el Lenguaje (Español-México)
+        intentActionRecognizeSpeech.putExtra(
+            RecognizerIntent.EXTRA_LANGUAGE_MODEL, "es-Es"
+        )
+        try {
+            startActivityForResult(
+                intentActionRecognizeSpeech,
+                RECOGNIZE_SPEECH_ACTIVITY
+            )
+        } catch (a: ActivityNotFoundException) {
+            Toast.makeText(
+                applicationContext,
+                "Tú dispositivo no soporta el reconocimiento por voz",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private fun encontrarElementos() {
+        grabar = findViewById(R.id.txtGrabarVoz) as TextView
+        hablar = findViewById((R.id.btnHablar))
+        calcular = findViewById(R.id.btnCalcular)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

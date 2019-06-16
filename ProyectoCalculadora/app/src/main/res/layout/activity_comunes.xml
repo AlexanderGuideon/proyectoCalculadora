@@ -8,7 +8,7 @@
         tools:context=".ActivityComunes" android:background="@drawable/fondo">
 
     <TextView
-            android:text="MCM/MCD"
+            android:text="@string/mcm_mcd"
             android:layout_width="159dp"
             android:layout_height="47dp"
             android:id="@+id/titulo3" android:textSize="30sp"
@@ -24,7 +24,7 @@
             android:layout_height="50dp"
             android:ems="10"
             android:id="@+id/campoNumUno"
-            android:inputType="number" android:hint="Numero 1" android:layout_marginTop="50dp"
+            android:inputType="number" android:hint="@string/numero_1" android:layout_marginTop="50dp"
             app:layout_constraintTop_toBottomOf="@+id/titulo3" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +36,7 @@
             android:inputType="number"
             android:ems="10"
             android:id="@+id/campoNumDos"
-            android:hint="Numero 2" android:layout_marginTop="25dp"
+            android:hint="@string/numero_2" android:layout_marginTop="25dp"
             app:layout_constraintTop_toBottomOf="@+id/campoNumUno" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
@@ -44,7 +44,7 @@
             app:layout_constraintBottom_toTopOf="@+id/edtContent" android:layout_marginBottom="25dp"
             android:background="#ffe0ff91"/>
     <Button
-            android:text="Maximo Comun Divisor"
+            android:text="@string/maximo_comun_divisor"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:id="@+id/btMCD"
@@ -57,7 +57,7 @@
             app:layout_constraintTop_toBottomOf="@+id/edtContent" android:layout_marginBottom="25dp"
             app:layout_constraintBottom_toTopOf="@+id/btMCM"/>
     <Button
-            android:text="Minimo Comun Multiplo"
+            android:text="@string/minimo_comun_multiplo"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:id="@+id/btMCM"
@@ -73,7 +73,7 @@
             android:inputType="textPersonName"
             android:ems="10"
             android:id="@+id/edtContent"
-            android:hint="Resultado"
+            android:hint="@string/resultado"
             android:focusable="false" android:layout_marginTop="25dp"
             app:layout_constraintTop_toBottomOf="@+id/campoNumDos" android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"

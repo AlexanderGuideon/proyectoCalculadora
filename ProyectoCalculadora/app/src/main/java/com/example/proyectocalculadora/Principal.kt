@@ -1,5 +1,7 @@
 package com.example.proyectocalculadora
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -8,27 +10,40 @@ import android.view.Window
 import android.widget.Button
 import android.widget.Toast
 
+/**
+ * Principal: Pantalla principal del programa.
+ * Permite elegir entre: Calculadora Cientifica,
+ * Calculadora Estándar, Mis Funciones y Otras Operaciones.
+ */
 class Principal : ActivityPadre() {
+
+    internal lateinit var opcCientifica:Button
+    internal lateinit var opcEstandar:Button
+    internal lateinit var opcOtras:Button
+    internal lateinit var opcFunciones:Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_principal)
 
+        encontrarElementos()
+        estalecerEventos()
+    }
 
-        val opcEstandar = findViewById<View>(R.id.opcEstandar) as Button
-        val opcCientifica = findViewById<View>(R.id.opcCientifica) as Button
-        val opcOtras = findViewById<View>(R.id.opcOtras) as Button
-        val opcFunciones = findViewById<View>(R.id.opcFunciones) as Button
-
+    private fun estalecerEventos() {
 
         opcEstandar.setOnClickListener { mostrarEstandar()}
-
         opcCientifica.setOnClickListener { mostrarCientifica() }
-
         opcOtras.setOnClickListener { mostrarOtras() }
-
         opcFunciones.setOnClickListener { mostrarFunciones() }
+    }
+
+    private fun encontrarElementos() {
+
+        opcEstandar = findViewById<View>(R.id.opcEstandar) as Button
+        opcCientifica = findViewById<View>(R.id.opcCientifica) as Button
+        opcOtras = findViewById<View>(R.id.opcOtras) as Button
+        opcFunciones = findViewById<View>(R.id.opcFunciones) as Button
     }
 
     private fun  mostrarEstandar() {
@@ -49,5 +64,24 @@ class Principal : ActivityPadre() {
     private fun mostrarFunciones() {
         val intent = Intent(this, ActivityFunciones::class.java)
         startActivityForResult(intent, 0)
+    }
+
+    override fun onBackPressed() {
+        val builder = android.support.v7.app.AlertDialog.Builder(this)
+        builder.setMessage("¿Desea Salir?")
+        builder.setTitle("MENSAJE:")
+
+        builder.setPositiveButton(
+            "Si"
+        ) { dialog, which -> finish()}
+
+        builder.setNegativeButton(
+            "No"
+        ) { dialog, which -> dialog.cancel() }
+        val dialog = builder.create()
+        dialog.show()
+
+
+
     }
 }

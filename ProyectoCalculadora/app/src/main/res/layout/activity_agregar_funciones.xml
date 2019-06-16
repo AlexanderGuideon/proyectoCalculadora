@@ -12,7 +12,7 @@
         android:inputType="text"
         android:ems="10"
         android:id="@+id/edtTitle"
-        android:hint="Nombre de operacion"
+        android:hint="@string/hintNomOp"
         android:background="#ffe0ff91"
         app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
@@ -29,8 +29,8 @@
         android:id="@+id/edtContent"
         android:background="#ffe0ff91"
         android:focusable="false"
-        android:hint="Operacion"
-        android:layout_marginBottom="25dp" app:layout_constraintBottom_toTopOf="@+id/panelBotones"
+        android:hint="@string/hintOp"
+        android:layout_marginBottom="25dp" app:layout_constraintBottom_toTopOf="@id/panelBotones"
         app:layout_constraintTop_toBottomOf="@id/edtTitle"
         android:layout_marginTop="10dp" app:layout_constraintStart_toStartOf="parent"
         android:layout_marginLeft="8dp" android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
@@ -40,15 +40,15 @@
         android:id="@+id/panelBotones"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/edtContent"
+        android:layout_below="@id/edtContent"
         android:layout_centerHorizontal="true"
         android:background="#ffe0ff91"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp" android:layout_marginStart="8dp"
         app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
         android:layout_marginTop="25dp"
-        app:layout_constraintTop_toBottomOf="@+id/edtContent" android:layout_marginBottom="25dp"
-        app:layout_constraintBottom_toTopOf="@+id/btAnyadir">
+        app:layout_constraintTop_toBottomOf="@id/edtContent" android:layout_marginBottom="25dp"
+        app:layout_constraintBottom_toTopOf="@id/btAnyadir">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -59,44 +59,44 @@
                 android:id="@+id/btnSen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sen"/>
+                android:text="@string/sen"/>
 
             <Button
                 android:id="@+id/btnaSen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="aSen"/>
+                android:text="@string/asen"/>
 
             <Button
                 android:id="@+id/btn7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="7"
+                android:text="@string/_7"
                 />
 
             <Button
                 android:id="@+id/btn4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4"/>
+                android:text="@string/_4"/>
 
 
             <Button
                 android:id="@+id/btn1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1"/>
+                android:text="@string/_1"/>
 
             <Button
                 android:id="@+id/btnPunto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="."/>
+                android:text="@string/punto"/>
             <Button
-                android:id="@+id/btnParIzq"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="(" tools:layout_editor_absoluteY="259dp" tools:layout_editor_absoluteX="49dp"/>
+                    android:id="@+id/btnParIzq"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/parDer" tools:layout_editor_absoluteY="259dp" tools:layout_editor_absoluteX="49dp"/>
 
         </LinearLayout>
         <LinearLayout
@@ -108,44 +108,44 @@
                 android:id="@+id/btnCos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cos"/>
+                android:text="@string/cos"/>
 
             <Button
                 android:id="@+id/btnaCos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="aCos"/>
+                android:text="@string/acos"/>
 
             <Button
                 android:id="@+id/btn8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="8"
+                android:text="@string/_8"
                 />
 
             <Button
                 android:id="@+id/btn5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="5"
+                android:text="@string/_5"
                 />
 
             <Button
                 android:id="@+id/btn2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2"/>
+                android:text="@string/_2"/>
 
             <Button
                 android:id="@+id/btn0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0"/>
+                android:text="@string/_0"/>
             <Button
-                android:id="@+id/btnParDer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=")" tools:layout_editor_absoluteY="259dp" tools:layout_editor_absoluteX="49dp"/>
+                    android:id="@+id/btnParDer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/parIzq" tools:layout_editor_absoluteY="259dp" tools:layout_editor_absoluteX="49dp"/>
 
 
         </LinearLayout>
@@ -158,42 +158,42 @@
                 android:id="@+id/btnTan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="tan"/>
+                android:text="@string/tan"/>
             <Button
                 android:id="@+id/btnaTan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="aTan"/>
+                android:text="@string/atan"/>
 
             <Button
                 android:id="@+id/btn9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="9"
+                android:text="@string/_9"
                 />
 
             <Button
                 android:id="@+id/btn6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="6"
+                android:text="@string/_6"
                 />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn3"
-                android:text="3"/>
+                android:text="@string/_3"/>
             <Button
                 android:id="@+id/btnPotencia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="^"/>
+                android:text="@string/pot"/>
             <Button
-                android:id="@+id/btnSuma"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="+" tools:layout_editor_absoluteY="667dp" tools:layout_editor_absoluteX="201dp"/>
+                    android:id="@+id/btnSuma"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sum" tools:layout_editor_absoluteY="667dp" tools:layout_editor_absoluteX="201dp"/>
 
         </LinearLayout>
         <LinearLayout
@@ -202,54 +202,54 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btndiv1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="log"/>
+                    android:id="@+id/btnLog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/log"/>
             <Button
                 android:id="@+id/btnFact"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="n!"/>
+                android:text="@string/fact"/>
             <Button
                 android:id="@+id/btnLimpiar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AC"/>
+                android:text="@string/limpia"/>
 
             <Button
                 android:id="@+id/btnDividir"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="/"/>
+                android:text="@string/divi"/>
 
             <Button
                 android:id="@+id/btnMultiplicar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="*"/>
+                android:text="@string/multi"/>
 
             <Button
                 android:id="@+id/btnResta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="-"/>
+                android:text="@string/menos"/>
             <Button
                 android:id="@+id/btnRaiz"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="sqrt"/>
+                android:text="@string/raiz"/>
 
         </LinearLayout>
 
 
     </LinearLayout>
     <Button
-        android:text="Añadir"
+        android:text="@string/txAnyadir"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btAnyadir" android:background="#ffe0ff91"
-        android:layout_marginTop="10dp" app:layout_constraintTop_toBottomOf="@+id/panelBotones"
+        android:layout_marginTop="10dp" app:layout_constraintTop_toBottomOf="@id/panelBotones"
         android:layout_marginBottom="25dp" app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"
         android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"

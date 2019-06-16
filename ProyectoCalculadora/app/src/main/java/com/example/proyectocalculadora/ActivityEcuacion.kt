@@ -7,6 +7,9 @@ import android.widget.EditText
 import android.widget.Toast
 import java.lang.Float.parseFloat
 
+/**
+ * ActivityEcuacion: resuelve las ecuaciones de primer grado y segundo grado con los datos introducidos
+ */
 class ActivityEcuacion : ActivityPadre() {
 
 
@@ -14,12 +17,70 @@ class ActivityEcuacion : ActivityPadre() {
     private lateinit var txtB :EditText
     private lateinit var txtC :EditText
     private lateinit var txtEcuacion:EditText
+    private lateinit var btPrimerGrado:Button
+    private lateinit var btSegundoGrado:Button
+    private lateinit var btResolver:Button
+
     private var esPrimerGrado = false
     private var ecuacionSelecionada = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ecuacion)
+
+        encontrarElementos()
+        establecerEventos()
+
+    }
+
+    private fun establecerEventos() {
+
+        btPrimerGrado.setOnClickListener {
+            resolverPrimerGrado()
+        }
+
+        btSegundoGrado.setOnClickListener {
+            resolverSegundoGrado()
+        }
+
+        btResolver.setOnClickListener {
+            resolver()
+        }
+
+    }
+
+    private fun resolver() {
+        if(ecuacionSelecionada){
+            if(esPrimerGrado)
+                calcularPrimerGrado()
+            else
+                calcularSegundoGrado()
+        }
+        else
+            Toast.makeText(this,"No seleccionaste ecuacion",Toast.LENGTH_LONG).show()
+    }
+
+    private fun resolverSegundoGrado() {
+
+        txtEcuacion.setText("Ax^2 + Bx + C")
+        txtA.visibility = View.VISIBLE
+        txtB.visibility = View.VISIBLE
+        txtC.visibility = View.VISIBLE
+        esPrimerGrado = false
+        ecuacionSelecionada = true
+    }
+
+    private fun resolverPrimerGrado() {
+
+        txtEcuacion.setText("Ax + B")
+        txtA.visibility = View.VISIBLE
+        txtB.visibility = View.VISIBLE
+        txtC.visibility = View.INVISIBLE
+        esPrimerGrado=true
+        ecuacionSelecionada = true
+    }
+
+    private fun encontrarElementos() {
 
         txtEcuacion = findViewById<View>(R.id.txtEcuacion) as EditText
         txtA = findViewById(R.id.txtA)
@@ -30,41 +91,9 @@ class ActivityEcuacion : ActivityPadre() {
         txtB.visibility = View.INVISIBLE
         txtC.visibility = View.INVISIBLE
 
-        var btPrimerGrado = findViewById<Button>(R.id.btPrimerGrado)
-        var btSegundoGrado = findViewById<Button>(R.id.btSegundoGrado)
-        var btResolver:Button = findViewById<Button>(R.id.btResolver)
-
-
-        btPrimerGrado.setOnClickListener {
-            txtEcuacion.setText("Ax + B")
-            txtA.visibility = View.VISIBLE
-            txtB.visibility = View.VISIBLE
-            txtC.visibility = View.INVISIBLE
-            esPrimerGrado=true
-            ecuacionSelecionada = true
-        }
-
-        btSegundoGrado.setOnClickListener {
-            txtEcuacion.setText("Ax^2 + Bx + C")
-            txtA.visibility = View.VISIBLE
-            txtB.visibility = View.VISIBLE
-            txtC.visibility = View.VISIBLE
-            esPrimerGrado = false
-            ecuacionSelecionada = true
-        }
-
-        btResolver.setOnClickListener {
-            if(ecuacionSelecionada){
-                if(esPrimerGrado)
-                    calcularPrimerGrado()
-                else
-                    calcularSegundoGrado()
-            }
-            else
-                Toast.makeText(this,"No seleccionaste ecuacion",Toast.LENGTH_LONG).show()
-        }
-
-
+        btPrimerGrado = findViewById<Button>(R.id.btPrimerGrado)
+        btSegundoGrado = findViewById<Button>(R.id.btSegundoGrado)
+        btResolver = findViewById<Button>(R.id.btResolver)
 
     }
 

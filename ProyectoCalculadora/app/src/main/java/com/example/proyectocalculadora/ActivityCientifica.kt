@@ -10,7 +10,7 @@ import java.lang.Float.*
 
 
 /**
-* ActivityCientifica: activity que muestra una calculadora cientifica, los botones ponen en texto 
+* ActivityCientifica: activity que muestra una calculadora cientifica, los botones ponen el texto
 * correspondiente en txtResultado y esto se envia al evaluador de expresiones
 */
 class ActivityCientifica : ActivityPadre() {
@@ -180,18 +180,6 @@ class ActivityCientifica : ActivityPadre() {
             btnIgual.setOnClickListener(onClickResulOper)
             
         }
-
-
-		
-		/**
-		* Para las funciones de arcoseno, arcocoseno y arcotangente usamos evento de pulsado 
-		* largo sobre seno, coseno y tangente, respectivamente.
-		*/
-		btnSen.setOnLongClickListener(onLongFuncion)
-        btnCos.setOnLongClickListener(onLongFuncion)     
-        btnTan.setOnLongClickListener(onLongFuncion)
-        
-
 	
         //Elementos de Borrado
         if(onClickBorrar != null)

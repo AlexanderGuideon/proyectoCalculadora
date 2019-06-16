@@ -13,7 +13,11 @@ import com.example.proyectocalculadora.entidades.Funciones;
 import com.example.proyectocalculadora.utilidades.ConexionSQLiteHelper;
 import com.example.proyectocalculadora.utilidades.FuncionesBD;
 
-public class ActivityAgregarFunciones extends AppCompatActivity {
+/**
+ * ActivityAgregarFunciones: activity que permite al usuario agregar operaciones personalizadas.
+ */
+
+public class ActivityAgregarFunciones extends ActivityPadre {
 
 
     EditText txtNombre;
@@ -34,6 +38,7 @@ public class ActivityAgregarFunciones extends AppCompatActivity {
     Button btnMultiplicar;
     Button btnDividir;
     Button btnRadicacion;
+    Button btnFactorial;
 
     Button btnSen;
     Button btnCos;
@@ -51,6 +56,7 @@ public class ActivityAgregarFunciones extends AppCompatActivity {
     Button btAnyadir;
 
     private View.OnClickListener onClick;
+    private View.OnClickListener onClickAnyadir;
     private View.OnClickListener onClickLimpiar;
 
     String valorA = "";
@@ -59,9 +65,7 @@ public class ActivityAgregarFunciones extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_agregar_funciones);
 
 
@@ -90,6 +94,7 @@ public class ActivityAgregarFunciones extends AppCompatActivity {
         btnMultiplicar = findViewById(R.id.btnMultiplicar);
         btnDividir = findViewById(R.id.btnDividir);
         btnRadicacion = findViewById(R.id.btnRaiz);
+        btnFactorial = findViewById(R.id.btnFact);
 
         btnSen = findViewById(R.id.btnSen);
         btnCos = findViewById(R.id.btnCos);
@@ -118,11 +123,18 @@ public class ActivityAgregarFunciones extends AppCompatActivity {
 
         };
 
-
         onClickLimpiar = new View.OnClickListener (){
             @Override
             public void onClick(View v) {
                 limpiar(v);
+            }
+
+        };
+
+        onClickAnyadir = new View.OnClickListener (){
+            @Override
+            public void onClick(View v) {
+                anyadir(v);
             }
 
         };
@@ -154,6 +166,7 @@ public class ActivityAgregarFunciones extends AppCompatActivity {
             btnDividir.setOnClickListener(onClick);
             btnMultiplicar.setOnClickListener(onClick);
             btnPotenciacion.setOnClickListener(onClick);
+            btnFactorial.setOnClickListener(onClick);
             btnParDer.setOnClickListener(onClick);
             btnParIzq.setOnClickListener(onClick);
 
@@ -166,39 +179,46 @@ public class ActivityAgregarFunciones extends AppCompatActivity {
             btnACos.setOnClickListener(onClick);
             btnATan.setOnClickListener(onClick);
 
-            btAnyadir.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String nombre = txtNombre.getText().toString();
-                    String resultado = txtResultado.getText().toString();
-
-                    if(resultado!="" && nombre != ""){
-                        ConexionSQLiteHelper conn = new ConexionSQLiteHelper(ActivityAgregarFunciones.this);
-                        FuncionesBD gestionBD = new FuncionesBD(conn);
-                        Funciones comprobado = gestionBD.obtener(nombre);
-
-                        if(comprobado==null){
-                            gestionBD.registrarFuncion(txtNombre.getText().toString(),txtResultado.getText().toString());
-                            String mensaje = "Agregado Correctamente";
-                            Intent i = new Intent(ActivityAgregarFunciones.this, ActivityFunciones.class);
-                            i.putExtra("mensaje", mensaje);
-                            startActivity(i);
-                        }
-                        else
-                            Toast.makeText(getApplicationContext(),"Ese nombre ya existe",Toast.LENGTH_LONG).show();
-                    }
-                    else
-                        Toast.makeText(getApplicationContext(),"Campos Vacios"+resultado,Toast.LENGTH_LONG).show();
-
-
-                }
-            });
-
         }
 
+        if(onClickAnyadir != null)
+            btAnyadir.setOnClickListener(onClickAnyadir);
 
         if(onClickLimpiar != null)
             btnLimpiar.setOnClickListener(onClickLimpiar);
+
+    }
+
+    private void anyadir(View v) {
+        String nombre = txtNombre.getText().toString();
+        String resultado = txtResultado.getText().toString();
+
+        if(!resultado.equals("" )&& !nombre.equals("")){
+            Double datoResul = null;
+            try{
+                datoResul = new EvaluadorExpresiones(resultado).getResultado();
+            }
+            catch (Exception e){
+                Toast.makeText(ActivityAgregarFunciones.this, "Expresion Invalida", Toast.LENGTH_LONG).show();
+            }
+
+            if(datoResul != null){
+                ConexionSQLiteHelper conn = new ConexionSQLiteHelper(ActivityAgregarFunciones.this);
+                FuncionesBD gestionBD = new FuncionesBD(conn);
+                Funciones comprobado = gestionBD.obtener(nombre);
+
+                if(comprobado==null){
+                    gestionBD.registrarFuncion(txtNombre.getText().toString(),txtResultado.getText().toString());
+                    Toast.makeText(getApplicationContext(),"Agregado Correctamente",Toast.LENGTH_LONG).show();
+                    finish();
+                }
+                else
+                    Toast.makeText(getApplicationContext(),"Ese nombre ya existe",Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+            Toast.makeText(getApplicationContext(),"Campos Vacios",Toast.LENGTH_LONG).show();
+
 
     }
 
@@ -206,8 +226,7 @@ public class ActivityAgregarFunciones extends AppCompatActivity {
     private void ponerDato(View v) {
 
         Button dato = (Button) v;
-
-        if(dato.getText().toString() == "n!")
+        if(dato.getText().toString().equals("n!"))
             valorA += "!";
         else
             valorA += dato.getText();

@@ -12,6 +12,11 @@ import com.example.proyectocalculadora.entidades.Funciones;
 
 import java.util.ArrayList;
 
+
+/**
+ * Clase: AdaptadorLista
+ * Desc: Sirve para adaptar nuestro List de Funciones dentro de nuestro ListView
+ */
 public class AdaptadorLista extends ArrayAdapter<Funciones> {
 
     Context contexto;

@@ -1,12 +1,9 @@
 package com.example.proyectocalculadora;
 
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewStub;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -18,7 +15,12 @@ import com.example.proyectocalculadora.utilidades.FuncionesBD;
 
 import java.util.ArrayList;
 
-public class ActivityFunciones extends AppCompatActivity {
+/**
+ * Activity que muestra un listado de funciones introducidas por el usuario.
+ * Por defecto siempre habra 7 en caso de no haber ninguna en la bd.
+ */
+
+public class ActivityFunciones extends ActivityPadre{
 
 
     ListView listaFunciones;
@@ -26,53 +28,41 @@ public class ActivityFunciones extends AppCompatActivity {
     AdaptadorLista adaptador;
     FuncionesBD gestionBD;
     Button agregar;
+    Button volver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_funciones);
+        encontrarElementos();
+        cargarLista();
+        establecerEventos();
 
-        Intent i = getIntent();
-        if(i!=null){
-            String mensaje = i.getStringExtra("mensaje");
-            if(mensaje != null){
-                Toast.makeText(ActivityFunciones.this,mensaje,Toast.LENGTH_LONG).show();
-                ConexionSQLiteHelper conn = new ConexionSQLiteHelper(this);
-                gestionBD = new FuncionesBD(conn);
-                listaFunciones = (ListView) findViewById(R.id.listaObras);
-                if (gestionBD.contarObras() == 0) {
-                    gestionBD.registarFunciones(this);
-                }
-                funciones = gestionBD.generarObras();
-            }
-        }
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        encontrarElementos();
+        cargarLista();
+        establecerEventos();
+    }
 
-        agregar = findViewById(R.id.botonAgregar);
-        ConexionSQLiteHelper conn = new ConexionSQLiteHelper(this);
-        gestionBD = new FuncionesBD(conn);
-        listaFunciones = (ListView) findViewById(R.id.listaObras);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        encontrarElementos();
+        cargarLista();
+        establecerEventos();
+    }
 
-        /* Si ejecuta por primera vez y los datos están vacios se llenan*/
-        if (gestionBD.contarObras() == 0) {
-            gestionBD.registarFunciones(this);
-        }
-        funciones = gestionBD.generarObras();
-        //Si esta vacía la lista de obras se infla el ViewStub
-        if(funciones.size() == 0){
-            ViewStub stub = findViewById(R.id.stub);
-            View inflated = stub.inflate();
-        }
+    private void establecerEventos() {
 
-        adaptador = new AdaptadorLista(this, funciones);
-        listaFunciones.setAdapter(adaptador);
         listaFunciones.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               // Toast.makeText(ActivityFunciones.this, "Id: "+position,Toast.LENGTH_LONG).show();
-               abrirFuncion(parent, view, position, id);
+                // Toast.makeText(ActivityFunciones.this, "Id: "+position,Toast.LENGTH_LONG).show();
+                abrirFuncion(parent, view, position, id);
             }
         });
 
@@ -83,8 +73,46 @@ public class ActivityFunciones extends AppCompatActivity {
             }
         });
 
+        volver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrirAnterior(v);
+            }
+        });
+    }
 
+    private void cargarLista() {
 
+        ConexionSQLiteHelper conn = new ConexionSQLiteHelper(this);
+        gestionBD = new FuncionesBD(conn);
+
+        /* Si ejecuta por primera vez y los datos están vacios se llenan*/
+        if (gestionBD.contar() == 0) {
+            gestionBD.registarFunciones(this);
+        }
+        funciones = gestionBD.generar();
+        //Si esta vacía la lista de obras se infla el ViewStub
+        if(funciones.size() == 0){
+            ViewStub stub = findViewById(R.id.stub);
+            View inflated = stub.inflate();
+        }
+        adaptador = new AdaptadorLista(this, funciones);
+        listaFunciones.setAdapter(adaptador);
+    }
+
+    private void encontrarElementos() {
+        agregar = findViewById(R.id.botonAgregar);
+        volver = findViewById(R.id.btVolver);
+        listaFunciones = (ListView) findViewById(R.id.listaFunciones);
+    }
+
+    private void abrirAnterior(View v) {
+        try{
+            Intent i = new Intent(this, Principal.class);
+            startActivity(i);
+        }catch (Exception e){
+            Toast.makeText(ActivityFunciones.this, "No se pudo volver", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void abrirAgregar(View v) {
@@ -101,12 +129,9 @@ public class ActivityFunciones extends AppCompatActivity {
 
     public void abrirFuncion(AdapterView<?> parent, View view, int position, long id) {
 
-
         String titulo = funciones.get(position).getTitulo();
         String expresion = funciones.get(position).getExpresion();
         Funciones funcion = new Funciones(titulo,expresion);
-
-
 
         try{
             Intent i = new Intent(this, ActivityVerFuncion.class);

@@ -8,6 +8,11 @@ import com.example.proyectocalculadora.entidades.Funciones;
 
 import java.util.ArrayList;
 
+
+/**
+ * Clase: FuncionesBD
+ * Desc: En esta clase estan las operaciones que realizaremos sobre la base de datos.
+ */
 public class FuncionesBD {
 
     ConexionSQLiteHelper conn;
@@ -19,12 +24,19 @@ public class FuncionesBD {
         funciones = new ArrayList<>();
     }
 
+    /**
+     * Metodo:borrarFuncion
+     * Desc: Borra una funcion de la bd.
+     * @param nombre
+     * @return funcion
+     */
+
     public Funciones borrarFuncion(String nombre){
         Funciones funcion = null;
         SQLiteDatabase db = conn.getReadableDatabase();
 
         try {
-            Cursor cursor = db.query(UtilidadesContract.TablaObra.NOMBRE_TABLA, null, null, null, null, null, null);
+            Cursor cursor = db.query(UtilidadesContract.Tabla.NOMBRE_TABLA, null, null, null, null, null, null);
 
             while (cursor.moveToNext()) {
 
@@ -33,7 +45,7 @@ public class FuncionesBD {
                 if(titulo.equals(nombre)){
                     funcion = new Funciones(titulo,expr);
                     SQLiteDatabase dbW =conn.getReadableDatabase();
-                    String sql = "DELETE FROM "+UtilidadesContract.TablaObra.NOMBRE_TABLA+" WHERE "+UtilidadesContract.TablaObra.CAMPO_TITULO +"=?";
+                    String sql = "DELETE FROM "+UtilidadesContract.Tabla.NOMBRE_TABLA+" WHERE "+UtilidadesContract.Tabla.CAMPO_TITULO +"=?";
                     SQLiteStatement delete = dbW.compileStatement(sql);
                     delete.clearBindings();
                     delete.bindString(1, funcion.getTitulo());
@@ -54,10 +66,16 @@ public class FuncionesBD {
 
     }
 
+
+    /**
+     * Metodo: registrarFunciones
+     * Desc: Introduce las funciones por defecto en  la bd.
+     * @param context
+     */
     public void registarFunciones(Context context) {
 
         String[] titulos = datosTitulos();
-        String[] expresiones = datosFechas();
+        String[] expresiones = datosExpre();
 
         SQLiteDatabase db = conn.getWritableDatabase();
 
@@ -66,9 +84,9 @@ public class FuncionesBD {
 
 
 
-            String sql = "INSERT INTO " + UtilidadesContract.TablaObra.NOMBRE_TABLA + "("
-                    + UtilidadesContract.TablaObra.CAMPO_TITULO + ","
-                    + UtilidadesContract.TablaObra.CAMPO_EXPRESION +") VALUES(?,?)";
+            String sql = "INSERT INTO " + UtilidadesContract.Tabla.NOMBRE_TABLA + "("
+                    + UtilidadesContract.Tabla.CAMPO_TITULO + ","
+                    + UtilidadesContract.Tabla.CAMPO_EXPRESION +") VALUES(?,?)";
             SQLiteStatement insert = db.compileStatement(sql);
             insert.clearBindings();
             insert.bindString(1, titulos[i]);
@@ -82,12 +100,19 @@ public class FuncionesBD {
 
     }
 
+
+    /**
+     * Metodo: obtener
+     * Desc: obtiene la funcion que se le ha apasado como parametro
+     * @param nombre
+     * @return funcion
+     */
     public Funciones obtener(String nombre){
         Funciones funcion = null;
         SQLiteDatabase db = conn.getReadableDatabase();
 
         try {
-            Cursor cursor = db.query(UtilidadesContract.TablaObra.NOMBRE_TABLA, null, null, null, null, null, null);
+            Cursor cursor = db.query(UtilidadesContract.Tabla.NOMBRE_TABLA, null, null, null, null, null, null);
 
             while (cursor.moveToNext()) {
 
@@ -107,11 +132,17 @@ public class FuncionesBD {
         }
     }
 
-    public ArrayList<Funciones> generarObras() {
+
+    /**
+     * Metodo: generar
+     * Desc: genera el ArrayList con funciones de la bd
+     * @return funciones
+     */
+    public ArrayList<Funciones> generar() {
         SQLiteDatabase db = conn.getReadableDatabase();
 
         try {
-            Cursor cursor = db.query(UtilidadesContract.TablaObra.NOMBRE_TABLA, null, null, null, null, null, null);
+            Cursor cursor = db.query(UtilidadesContract.Tabla.NOMBRE_TABLA, null, null, null, null, null, null);
             while (cursor.moveToNext()) {
 
                 String tit = cursor.getString(1);
@@ -128,6 +159,13 @@ public class FuncionesBD {
         }
     }
 
+
+    /**
+     * Metodo: registrarFuncion
+     * Desc: Inserta una nueva funcion a la bd
+     * @param nombre
+     * @param expresion
+     */
     public void registrarFuncion(String nombre, String expresion){
 
         SQLiteDatabase db = conn.getReadableDatabase();
@@ -137,9 +175,9 @@ public class FuncionesBD {
 
                     Funciones funcion = new Funciones(nombre,expresion);
 
-                    String sql = "INSERT INTO " + UtilidadesContract.TablaObra.NOMBRE_TABLA + "("
-                            + UtilidadesContract.TablaObra.CAMPO_TITULO + ","
-                            + UtilidadesContract.TablaObra.CAMPO_EXPRESION +") VALUES(?,?)";
+                    String sql = "INSERT INTO " + UtilidadesContract.Tabla.NOMBRE_TABLA + "("
+                            + UtilidadesContract.Tabla.CAMPO_TITULO + ","
+                            + UtilidadesContract.Tabla.CAMPO_EXPRESION +") VALUES(?,?)";
                     SQLiteStatement insert = dbWrite.compileStatement(sql);
                     insert.clearBindings();
                     insert.bindString(1, funcion.getTitulo());
@@ -154,12 +192,16 @@ public class FuncionesBD {
         }
     }
 
-
-    public int contarObras() {
+    /**
+     * Metodo: contar
+     * Desc: cuenta el numero de funciones de la bd
+     * @return
+     */
+    public int contar() {
         SQLiteDatabase db = conn.getReadableDatabase();
         int cont = 0;
         try {
-            Cursor cursor = db.query(UtilidadesContract.TablaObra.NOMBRE_TABLA, null, null, null, null, null, null);
+            Cursor cursor = db.query(UtilidadesContract.Tabla.NOMBRE_TABLA, null, null, null, null, null, null);
             while (cursor.moveToNext()) {
                 cont++;
             }
@@ -172,13 +214,21 @@ public class FuncionesBD {
         }
     }
 
+    /**
+     * Datos de titulos
+     * @return titulos
+     */
 
     public String[] datosTitulos() {
         String[] titulos = {"Funcion 1", "Suma Resta Divide", "Producto", "Prueba 2", "Mi Funcion", "Potencia", "Seno de 90"};
         return titulos;
     }
 
-    public String[] datosFechas() {
+    /**
+     * Datos de expresiones
+     * @return expresiones
+     */
+    public String[] datosExpre() {
         String[] expresiones = {"4-(5*3)", "(4+6-5)/3", "5*(6+4)", "4/0", "(4*(5^2))/3", "2^10", "sen(90)"};
         return expresiones;
     }

@@ -5,10 +5,10 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import java.lang.Float
-import java.lang.Float.parseFloat
-import android.widget.Toast.makeText as makeText1
 
+/**
+ * ActivityEstandar: similar  a ActivityCientifica pero solo realiza calculos basicos
+ */
 class ActivityEstandar : ActivityPadre() {
 
     //Recogemos elementos de la vista para trabajar con ellos
@@ -43,8 +43,7 @@ class ActivityEstandar : ActivityPadre() {
     //Variables para obtener los operandos y el resultado correspondiente en la calculadora
     internal var valorA = ""
     internal var resul = ""
-    internal var esFun = false
-    internal var finParentesis = false
+
 	
 	//Eventos de nuestra activity
     private var onClick: View.OnClickListener? = null
@@ -55,7 +54,6 @@ class ActivityEstandar : ActivityPadre() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_estandar)
 
         obtenerElementos()
@@ -147,8 +145,9 @@ class ActivityEstandar : ActivityPadre() {
         onClickFuncion = View.OnClickListener { v ->
             if(txtResultado.text.toString() != ""){
                 var dato = v as Button
-                valorA += dato.text.toString() +"("+txtResultado.text.toString()+")"
+                valorA = dato.text.toString() +"("+txtResultado.text.toString()+")"
             }
+
             txtResultado.setText(valorA)
         }
 
@@ -191,17 +190,21 @@ class ActivityEstandar : ActivityPadre() {
             catch (e: Exception){Toast.makeText(this,"Expresion invalida",Toast.LENGTH_LONG).show()}
         }
     }
-	
-	private fun limpiar(v:View){
-		valorA = ""
-        txtResultado.setText(valorA)
-        resul = ""
-	}
-	
-	private fun borrar(v:View){
-		valorA = valorA.substring(0,valorA.length-1)
-        txtResultado.setText(valorA)
-        resul = txtResultado.text.toString()
-	}
+
+    private fun limpiar(v:View){
+        if(txtResultado.text.toString()!= ""){
+            valorA = ""
+            txtResultado.setText(valorA)
+            resul = ""
+        }
+    }
+
+    private fun borrar(v:View){
+        if(txtResultado.text.toString()!= ""){
+            valorA = valorA.substring(0,valorA.length-1)
+            txtResultado.setText(valorA)
+            resul = txtResultado.text.toString()
+        }
+    }
 
 }

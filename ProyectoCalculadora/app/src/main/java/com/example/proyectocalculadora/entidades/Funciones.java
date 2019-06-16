@@ -3,6 +3,11 @@ package com.example.proyectocalculadora.entidades;
 
 import java.io.Serializable;
 
+/**
+ * Clase: Funciones
+ * Desc: Son las funciones que podra incluir el usuario a la aplicación
+ * */
+
 public class Funciones implements Serializable {
 
     private int id;

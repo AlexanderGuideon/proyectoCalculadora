@@ -6,26 +6,26 @@
     android:layout_height="100dp">
 
     <TextView
-        android:id="@+id/titulo"
-        android:layout_width="210dp"
-        android:layout_height="25dp"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimary"
-        app:layout_constraintBottom_toTopOf="@id/expresion"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/titulo"
+            android:layout_width="210dp"
+            android:layout_height="25dp"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@id/expresion"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" android:textSize="18sp"/>
 
 
     <TextView
-        android:id="@+id/expresion"
-        android:layout_width="210dp"
-        android:layout_height="25dp"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titulo" />
+            android:id="@+id/expresion"
+            android:layout_width="210dp"
+            android:layout_height="25dp"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titulo" android:textSize="18sp"/>
 
 
 </android.support.constraint.ConstraintLayout>
