@@ -1,7 +1,9 @@
 package com.example.proyectocalculadora;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.AdapterView;
@@ -28,7 +30,6 @@ public class ActivityFunciones extends ActivityPadre{
     AdaptadorLista adaptador;
     FuncionesBD gestionBD;
     Button agregar;
-    Button volver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +62,18 @@ public class ActivityFunciones extends ActivityPadre{
         listaFunciones.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Toast.makeText(ActivityFunciones.this, "Id: "+position,Toast.LENGTH_LONG).show();
                 abrirFuncion(parent, view, position, id);
             }
+        });
+
+        listaFunciones.setOnItemLongClickListener( new AdapterView.OnItemLongClickListener(){
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                abrirCompartir(position);
+                return true;
+            }
+
         });
 
         agregar.setOnClickListener(new View.OnClickListener() {
@@ -73,12 +83,43 @@ public class ActivityFunciones extends ActivityPadre{
             }
         });
 
-        volver.setOnClickListener(new View.OnClickListener() {
+    }
+
+    private void abrirCompartir(int position) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityFunciones.this);
+        builder.setMessage("¿Desea compartirlo?");
+        builder.setTitle("ATENCION:");
+        final int i = position;
+        builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                abrirAnterior(v);
+            public void onClick(DialogInterface dialog, int which) {
+                compartir(i);
             }
         });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog dialog  = builder.create();
+        dialog.show();
+
+    }
+
+    public void compartir(int position){
+        try{
+            String titulo = funciones.get(position).getTitulo();
+            String expresion = funciones.get(position).getExpresion();
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TEXT, "Queria compartir mi funcion contigo: Titulo->"+titulo+" Expresion->"+expresion+".");
+            startActivity(Intent.createChooser(intent, "Compartir con..."));
+        }catch(Exception e){
+            Toast.makeText(ActivityFunciones.this,"No se pudo compartir",Toast.LENGTH_LONG).show();
+        }
     }
 
     private void cargarLista() {
@@ -91,7 +132,7 @@ public class ActivityFunciones extends ActivityPadre{
             gestionBD.registarFunciones(this);
         }
         funciones = gestionBD.generar();
-        //Si esta vacía la lista de obras se infla el ViewStub
+        //Si esta vacía la lista se infla el ViewStub
         if(funciones.size() == 0){
             ViewStub stub = findViewById(R.id.stub);
             View inflated = stub.inflate();
@@ -102,18 +143,10 @@ public class ActivityFunciones extends ActivityPadre{
 
     private void encontrarElementos() {
         agregar = findViewById(R.id.botonAgregar);
-        volver = findViewById(R.id.btVolver);
         listaFunciones = (ListView) findViewById(R.id.listaFunciones);
     }
 
-    private void abrirAnterior(View v) {
-        try{
-            Intent i = new Intent(this, Principal.class);
-            startActivity(i);
-        }catch (Exception e){
-            Toast.makeText(ActivityFunciones.this, "No se pudo volver", Toast.LENGTH_LONG).show();
-        }
-    }
+
 
     private void abrirAgregar(View v) {
         try{
@@ -136,9 +169,6 @@ public class ActivityFunciones extends ActivityPadre{
         try{
             Intent i = new Intent(this, ActivityVerFuncion.class);
             i.putExtra("funcion", funcion);
-
-
-
             startActivity(i);
 
         }catch (Exception e){
